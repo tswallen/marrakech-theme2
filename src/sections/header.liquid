@@ -11,7 +11,28 @@
   - Home page only: only shows on the home page
 {%- endcomment -%}
 <section data-section-id="{{ section.id }}" data-section-type="header">
-  {%- if section.settings.announcement_bar_enabled -%}
+
+  <div class="header">
+    <button class="header-button">
+      Go to store
+    </button>
+    <h3 class="header-logo">
+      {{shop.name}}
+    </h3>
+    <ul class="header-links">
+      <li class="header-link">
+        Our guarentee
+      </li>
+      <li class="header-link">
+        Shipping
+      </li>
+      <li class="header-link">
+        About / FAQ
+      </li>
+    </ul>
+  </div>
+
+{% comment %}   {%- if section.settings.announcement_bar_enabled -%}
     <div>
       {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
         {%- if section.settings.announcement_bar_link != blank -%}
@@ -125,6 +146,8 @@
       {% endfor %}
     </ul>
   </nav>
+
+  <p class="cum">CUM</p> {% endcomment %}
 </section>
 
 {% if section.settings.logo != blank %}
