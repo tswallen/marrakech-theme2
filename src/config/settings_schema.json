@@ -156,5 +156,16 @@
         "info": "Will be scaled down to 32 x 32px"
       }
     ]
+  },
+  {
+    "name": "Company Info",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "company_info",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
   }
 ]
