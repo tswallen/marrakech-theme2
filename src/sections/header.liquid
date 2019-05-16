@@ -11,28 +11,7 @@
   - Home page only: only shows on the home page
 {%- endcomment -%}
 <section data-section-id="{{ section.id }}" data-section-type="header">
-
-  <div class="header">
-    <button class="header-button">
-      Go to store
-    </button>
-    <h3 class="header-logo">
-      {{shop.name}}
-    </h3>
-    <ul class="header-links">
-      <li class="header-link">
-        Our guarentee
-      </li>
-      <li class="header-link">
-        Shipping
-      </li>
-      <li class="header-link">
-        About / FAQ
-      </li>
-    </ul>
-  </div>
-
-{% comment %}   {%- if section.settings.announcement_bar_enabled -%}
+  {%- if section.settings.announcement_bar_enabled -%}
     <div>
       {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
         {%- if section.settings.announcement_bar_link != blank -%}
@@ -47,6 +26,7 @@
   {%- endif -%}
 
   <header role="banner">
+  {% comment %} LOGO {% endcomment %}
     {% if template.name == 'index' %}
       <h1>
     {% else %}
@@ -68,12 +48,14 @@
       </div>
     {% endif %}
 
+{% comment %} CART {% endcomment %}
     <a href="/cart">
       {% include 'icon-cart' %}
       {{ 'layout.cart.title' | t }}
       ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
     </a>
 
+{% comment %} USER ACCOUNTS {% endcomment %}
     {% if shop.customer_accounts_enabled %}
       <ul>
         {% if customer %}
@@ -99,6 +81,7 @@
       </ul>
     {% endif %}
 
+{% comment %} SEARCH {% endcomment %}
     <form action="/search" method="get" role="search">
       <label for="Search-{{ section.id }}" class="label-hidden">
         {{ 'general.search.placeholder' | t }}
@@ -117,6 +100,7 @@
     </form>
   </header>
 
+{% comment %} NAVIGATION {% endcomment %}
   <nav role="navigation">
     <ul>
       {% for link in linklists[section.settings.menu].links %}
@@ -146,8 +130,6 @@
       {% endfor %}
     </ul>
   </nav>
-
-  <p class="cum">CUM</p> {% endcomment %}
 </section>
 
 {% if section.settings.logo != blank %}
@@ -215,16 +197,6 @@
         "id": "menu",
         "label": "Menu",
         "default": "main-menu"
-      },
-      {
-        "type": "header",
-        "content": "Custom"
-      },
-      {
-        "type": "checkbox",
-        "id": "test_me",
-        "label": "Test",
-        "default": false
       }
     ]
   }
