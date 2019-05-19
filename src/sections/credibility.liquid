@@ -1,0 +1,41 @@
+<section>
+    <div class="credibility">
+        <h1 class="credibility-h1">Why choose us?</h1>
+        <div class="credibility-reasons">
+            reasons
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Credibility",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "banner_img",
+        "label": "Banner Image"
+      },
+        {
+        "type": "header",
+        "content": "Reason 1"
+      },
+            {
+        "type": "image_picker",
+        "id": "reason_1_img",
+        "label": "reason_1_img"
+      },
+                  {
+        "type": "textarea",
+        "id": "reason_1_text",
+        "label": "reason_1_text"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Credibility",
+        "category": "Store Information"
+      }
+    ]
+  }
+{% endschema %}
