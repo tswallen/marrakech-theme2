@@ -1,0 +1,12 @@
+.collection-navigator {
+    display: flex;
+}
+.collection-navigator-options {
+    display: flex;
+    flex: auto;
+    justify-content: space-around;
+}
+.collection-navigator-option {
+    display: flex;
+    align-items: center;
+}

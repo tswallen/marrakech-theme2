@@ -1,41 +1,141 @@
 <section>
-    <div class="credibility">
-        <h1 class="credibility-h1">Why choose us?</h1>
-        <div class="credibility-reasons">
-            reasons
-        </div>
+  <div class="credibility">
+    <div class="credibility-aside">
+      {% include 'responsive-image' with
+        image: section.settings.banner_img,
+        max_width: 500,
+        max_height: 250
+      %}
     </div>
+    <div class="credibility-main">
+      <h1 class="credibility-main-h1">{{ section.settings.heading | escape }}</h1>
+      <div class="credibility-main-reasons">
+        {% if section.settings.show_reason_1 %}
+        <div class="credibility-main-reason">
+          {% include 'responsive-image' with
+                image: section.settings.reason_1_img,
+                max_width: 75,
+                max_height: 75
+              %}
+          <p class="credibility-main-reason-text">{{ section.settings.reason_1_text | escape }}</p>
+        </div>
+        {% endif %}
+        {% if section.settings.show_reason_2 %}
+        <div class="credibility-main-reason">
+          {% include 'responsive-image' with
+                image: section.settings.reason_2_img,
+                max_width: 75,
+                max_height: 75
+              %}
+          <p class="credibility-main-reason-text">{{ section.settings.reason_2_text | escape }}</p>
+        </div>
+        {% endif %}
+        {% if section.settings.show_reason_3 %}
+        <div class="credibility-main-reason">
+          {% include 'responsive-image' with
+                image: section.settings.reason_3_img,
+                max_width: 75,
+                max_height: 75
+              %}
+          <p class="credibility-main-reason-text">{{ section.settings.reason_3_text | escape }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </section>
 
 {% schema %}
-  {
-    "name": "Credibility",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "banner_img",
-        "label": "Banner Image"
-      },
-        {
-        "type": "header",
-        "content": "Reason 1"
-      },
-            {
-        "type": "image_picker",
-        "id": "reason_1_img",
-        "label": "reason_1_img"
-      },
-                  {
-        "type": "textarea",
-        "id": "reason_1_text",
-        "label": "reason_1_text"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Credibility",
-        "category": "Store Information"
-      }
-    ]
-  }
+{
+"name": "Credibility",
+"settings": [
+{
+"type": "header",
+"content": "Banner Image"
+},
+{
+"type": "checkbox",
+"id": "show_banner_image",
+"label": "Show banner image"
+},
+{
+"type": "image_picker",
+"id": "banner_img",
+"label": "Banner image"
+},
+{
+"type": "header",
+"content": "Heading"
+},
+{
+"type": "text",
+"id": "heading",
+"label": "Heading text",
+"default": "Why choose us?"
+},
+{
+"type": "header",
+"content": "Reason 1"
+},
+{
+"type": "checkbox",
+"id": "show_reason_1",
+"label": "Show reason 1"
+},
+{
+"type": "image_picker",
+"id": "reason_1_img",
+"label": "Reason 1 image"
+},
+{
+"type": "textarea",
+"id": "reason_1_text",
+"label": "Reason 1 text"
+},
+{
+"type": "header",
+"content": "Reason 2"
+},
+{
+"type": "checkbox",
+"id": "show_reason_2",
+"label": "Show reason 2"
+},
+{
+"type": "image_picker",
+"id": "reason_2_img",
+"label": "Reason 2 image"
+},
+{
+"type": "textarea",
+"id": "reason_2_text",
+"label": "Reason 2 text"
+},
+{
+"type": "header",
+"content": "Reason 3"
+},
+{
+"type": "checkbox",
+"id": "show_reason_3",
+"label": "Show reason 3"
+},
+{
+"type": "image_picker",
+"id": "reason_3_img",
+"label": "Reason 3 image"
+},
+{
+"type": "textarea",
+"id": "reason_3_text",
+"label": "Reason 3 text"
+}
+],
+"presets": [
+{
+"name": "Credibility",
+"category": "Store Information"
+}
+]
+}
 {% endschema %}

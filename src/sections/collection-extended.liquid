@@ -1,0 +1,115 @@
+<section>
+    <div class="collection">
+        <aside class="collection-aside">
+            {% include 'responsive-image' with
+            image: section.settings.collection_img,
+            max_width: 500,
+            max_height: 500 %}
+        </aside>
+        <main class="collection-main">
+            <h1 class="collection-main-h1">{{ section.settings.headline | escape }}</h1>
+            <div class="collection-main-features">
+                {% if section.settings.show_feature_1 %}
+                <div class="collection-main-feature">
+                    {% include 'responsive-image' with
+                image: section.settings.feature_1_img,
+                max_width: 100,
+                max_height: 100
+              %}
+                    <p class="collection-main-feature-text">{{ section.settings.feature_1_text | escape }}</p>
+                </div>
+                {% endif %}
+                {% if section.settings.show_feature_2 %}
+                <div class="collection-main-feature">
+                    {% include 'responsive-image' with
+                image: section.settings.feature_2_img,
+                max_width: 100,
+                max_height: 100
+              %}
+                    <p class="collection-main-feature-text">{{ section.settings.feature_2_text | escape }}</p>
+                </div>
+                {% endif %}
+            </div>
+            <h2 class="collection-main-h2">{{ section.settings.tagline | escape }}</h2>
+        </main>
+    </div>
+</section>
+
+{% schema %}
+{
+"name": "Collection extended",
+"settings": [
+{
+"type": "header",
+"content": "Images"
+},
+{
+"type": "image_picker",
+"id": "collection_img",
+"label": "Collection image"
+},
+{
+"type": "header",
+"content": "Headline"
+},
+{
+"type": "text",
+"id": "headline",
+"label": "Headline"
+},
+{
+"type": "header",
+"content": "Feature 1"
+},
+{
+"type": "checkbox",
+"id": "show_feature_1",
+"label": "Show feature 1"
+},
+{
+"type": "image_picker",
+"id": "feature_1_img",
+"label": "Feature 1 image"
+},
+{
+"type": "textarea",
+"id": "feature_1_text",
+"label": "Feature 1 text"
+},
+{
+"type": "header",
+"content": "Feature 2"
+},
+{
+"type": "checkbox",
+"id": "show_feature_2",
+"label": "Show feature 2"
+},
+{
+"type": "image_picker",
+"id": "feature_2_img",
+"label": "Feature 2 image"
+},
+{
+"type": "textarea",
+"id": "feature_2_text",
+"label": "Feature 2 text"
+},
+{
+"type": "header",
+"content": "Tagline"
+},
+{
+"type": "text",
+"id": "tagline",
+"label": "Tagline"
+}
+],
+"presets": [
+{
+"name": "Collection extended",
+"category": "Collection"
+}
+]
+}
+{% endschema %}

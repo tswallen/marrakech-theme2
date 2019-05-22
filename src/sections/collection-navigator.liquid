@@ -1,0 +1,60 @@
+<section>
+    <div class="collection-navigator">
+        <h1 class="collection-navigator-h1">{{ section.settings.heading | escape }}</h1>
+        <div class="collection-navigator-options">
+            {% if section.settings.show_option_1 %}
+            <div class="collection-navigator-option">
+                {% include 'responsive-image' with
+                        image: section.settings.option_1_img,
+                        max_width: 20,
+                        max_height: 20,
+    %}
+                <p class="collection-navigator-option-text">{{ section.settings.option_1_text | escape }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+"name": "Collection navigator",
+"settings": [
+{
+"type": "header",
+"content": "Heading"
+},
+{
+"type": "text",
+"id": "heading",
+"label": "Heading",
+"default": "What can we help you with?"
+},
+{
+"type": "header",
+"content": "Option 1"
+},
+{
+"type": "checkbox",
+"id": "show_option_1",
+"label": "Show option 1"
+},
+{
+"type": "image_picker",
+"id": "option_1_img",
+"label": "Option 1 image"
+},
+{
+"type": "text",
+"id": "option_1_text",
+"label": "Option 1 text"
+}
+],
+"presets": [
+{
+"name": "Collection navigator",
+"category": "Collection"
+}
+]
+}
+{% endschema %}
