@@ -31,6 +31,17 @@
                 {% endif %}
             </div>
             <h2 class="collection-main-h2">{{ section.settings.tagline | escape }}</h2>
+            <div class="collection-main-testimonial">
+                {% include 'responsive-image' with
+                image: section.settings.testimonial_img,
+                max_width: 75,
+                max_height: 75 %}
+                <div class="collection-main-testimonial-text">
+                    <p class="collection-main-testimonial-text-p">{{ section.settings.testimonial_body | escape }}</p>
+                    <span
+                        class="collection-main-testimonial-span">{{ section.settings.testimonial_author | escape }}</span>
+                </div>
+            </div>
         </main>
     </div>
 </section>
@@ -103,6 +114,24 @@
 "type": "text",
 "id": "tagline",
 "label": "Tagline"
+},
+{"type": "header",
+"content": "Testimonial"
+},
+{
+"type": "image_picker",
+"id": "testimonial_img",
+"label": "Tesimonial Image"
+},
+{
+"type": "textarea",
+"id": "testimonial_body",
+"label": "Body"
+},
+{
+"type": "textarea",
+"id": "testimonial_author",
+"label": "Author"
 }
 ],
 "presets": [
