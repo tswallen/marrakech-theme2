@@ -1,3 +1,11 @@
+{%- comment -%}
+  __  __          _             
+ |  \/  |__ _ _ _| |___  _ _ __ 
+ | |\/| / _` | '_| / / || | '_ \
+ |_|  |_\__,_|_| |_\_\\_,_| .__/
+                          |_|
+{%- endcomment -%}
+
 <section>
   <div class="credibility">
     <div class="credibility-aside">
@@ -45,97 +53,143 @@
   </div>
 </section>
 
+{%- comment -%}
+  ___     _                   
+ / __| __| |_  ___ _ __  __ _ 
+ \__ \/ _| ' \/ -_) '  \/ _` |
+ |___/\__|_||_\___|_|_|_\__,_|
+
+{%- endcomment -%}
+
 {% schema %}
-{
-"name": "Credibility",
-"settings": [
-{
-"type": "header",
-"content": "Banner Image"
-},
-{
-"type": "checkbox",
-"id": "show_banner_image",
-"label": "Show banner image"
-},
-{
-"type": "image_picker",
-"id": "banner_img",
-"label": "Banner image"
-},
-{
-"type": "header",
-"content": "Heading"
-},
-{
-"type": "text",
-"id": "heading",
-"label": "Heading text",
-"default": "Why choose us?"
-},
-{
-"type": "header",
-"content": "Reason 1"
-},
-{
-"type": "checkbox",
-"id": "show_reason_1",
-"label": "Show reason 1"
-},
-{
-"type": "image_picker",
-"id": "reason_1_img",
-"label": "Reason 1 image"
-},
-{
-"type": "textarea",
-"id": "reason_1_text",
-"label": "Reason 1 text"
-},
-{
-"type": "header",
-"content": "Reason 2"
-},
-{
-"type": "checkbox",
-"id": "show_reason_2",
-"label": "Show reason 2"
-},
-{
-"type": "image_picker",
-"id": "reason_2_img",
-"label": "Reason 2 image"
-},
-{
-"type": "textarea",
-"id": "reason_2_text",
-"label": "Reason 2 text"
-},
-{
-"type": "header",
-"content": "Reason 3"
-},
-{
-"type": "checkbox",
-"id": "show_reason_3",
-"label": "Show reason 3"
-},
-{
-"type": "image_picker",
-"id": "reason_3_img",
-"label": "Reason 3 image"
-},
-{
-"type": "textarea",
-"id": "reason_3_text",
-"label": "Reason 3 text"
-}
-],
-"presets": [
-{
-"name": "Credibility",
-"category": "Store Information"
-}
-]
-}
+  {
+    "name":"Credibility",
+    "settings":[
+      {
+          "type":"header",
+          "content":"Banner Image"
+      },
+      {
+          "type":"checkbox",
+          "id":"show_banner_image",
+          "label":"Show banner image"
+      },
+      {
+          "type":"image_picker",
+          "id":"banner_img",
+          "label":"Banner image"
+      },
+      {
+          "type":"header",
+          "content":"Heading"
+      },
+      {
+          "type":"text",
+          "id":"heading",
+          "label":"Heading text",
+          "default":"Why choose us?"
+      },
+      {
+          "type":"header",
+          "content":"Reason 1"
+      },
+      {
+          "type":"checkbox",
+          "id":"show_reason_1",
+          "label":"Show reason 1"
+      },
+      {
+          "type":"image_picker",
+          "id":"reason_1_img",
+          "label":"Reason 1 image"
+      },
+      {
+          "type":"textarea",
+          "id":"reason_1_text",
+          "label":"Reason 1 text"
+      },
+      {
+          "type":"header",
+          "content":"Reason 2"
+      },
+      {
+          "type":"checkbox",
+          "id":"show_reason_2",
+          "label":"Show reason 2"
+      },
+      {
+          "type":"image_picker",
+          "id":"reason_2_img",
+          "label":"Reason 2 image"
+      },
+      {
+          "type":"textarea",
+          "id":"reason_2_text",
+          "label":"Reason 2 text"
+      },
+      {
+          "type":"header",
+          "content":"Reason 3"
+      },
+      {
+          "type":"checkbox",
+          "id":"show_reason_3",
+          "label":"Show reason 3"
+      },
+      {
+          "type":"image_picker",
+          "id":"reason_3_img",
+          "label":"Reason 3 image"
+      },
+      {
+          "type":"textarea",
+          "id":"reason_3_text",
+          "label":"Reason 3 text"
+      }
+    ],
+    "presets":[
+      {
+          "name":"Credibility",
+          "category":"Store Information"
+      }
+    ]
+  }
 {% endschema %}
+
+{%- comment -%}
+  ___ _        _        
+ / __| |_ _  _| |___ ___
+ \__ \  _| || | / -_|_-<
+ |___/\__|\_, |_\___/__/
+          |__/          
+{%- endcomment -%}
+
+{% stylesheet %}
+  .credibility {
+    display: flex;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  .credibility-main {
+    flex: auto;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .credibility-main-reasons {
+    display: flex;
+    justify-content: space-around;
+    flex: auto;
+    align-items: center;
+    overflow-x: auto;
+  }
+  .credibility-main-reason {
+    display: flex;
+    padding: 1em 2.5em;
+    align-items: center;
+  }
+  .credibility-main-reason-text {
+    padding: 1em;
+    max-width: 10em;
+  }
+{% endstylesheet %}

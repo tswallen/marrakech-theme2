@@ -1,3 +1,11 @@
+{%- comment -%}
+  __  __          _             
+ |  \/  |__ _ _ _| |___  _ _ __ 
+ | |\/| / _` | '_| / / || | '_ \
+ |_|  |_\__,_|_| |_\_\\_,_| .__/
+                          |_|
+{%- endcomment -%}
+
 <section>
     <div class="collection-navigator">
         <h1 class="collection-navigator-h1">{{ section.settings.heading | escape }}</h1>
@@ -12,49 +20,149 @@
                 <p class="collection-navigator-option-text">{{ section.settings.option_1_text | escape }}</p>
             </div>
             {% endif %}
+            {% if section.settings.show_option_2 %}
+            <div class="collection-navigator-option">
+                {% include 'responsive-image' with
+                        image: section.settings.option_2_img,
+                        max_width: 20,
+                        max_height: 20,
+    %}
+                <p class="collection-navigator-option-text">{{ section.settings.option_2_text | escape }}</p>
+            </div>
+            {% endif %}
+            {% if section.settings.show_option_3 %}
+            <div class="collection-navigator-option">
+                {% include 'responsive-image' with
+                        image: section.settings.option_3_img,
+                        max_width: 20,
+                        max_height: 20,
+    %}
+                <p class="collection-navigator-option-text">{{ section.settings.option_3_text | escape }}</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>
 
+{%- comment -%}
+  ___     _                   
+ / __| __| |_  ___ _ __  __ _ 
+ \__ \/ _| ' \/ -_) '  \/ _` |
+ |___/\__|_||_\___|_|_|_\__,_|
+
+{%- endcomment -%}
+
 {% schema %}
 {
-"name": "Collection navigator",
-"settings": [
-{
-"type": "header",
-"content": "Heading"
-},
-{
-"type": "text",
-"id": "heading",
-"label": "Heading",
-"default": "What can we help you with?"
-},
-{
-"type": "header",
-"content": "Option 1"
-},
-{
-"type": "checkbox",
-"id": "show_option_1",
-"label": "Show option 1"
-},
-{
-"type": "image_picker",
-"id": "option_1_img",
-"label": "Option 1 image"
-},
-{
-"type": "text",
-"id": "option_1_text",
-"label": "Option 1 text"
-}
-],
-"presets": [
-{
-"name": "Collection navigator",
-"category": "Collection"
-}
-]
-}
+    "name":"Collection navigator",
+    "settings":[
+      {
+         "type":"header",
+         "content":"Header"
+      },
+      {
+         "type":"text",
+         "id":"heading",
+         "label":"Heading"
+      },
+      {
+         "type":"header",
+         "content":"Option 1"
+      },
+      {
+         "type":"checkbox",
+         "id":"show_option_1",
+         "label":"Show option 1"
+      },
+      {
+         "type":"image_picker",
+         "id":"option_1_img",
+         "label":"Option 1 Image"
+      },
+      {
+         "type":"text",
+         "id":"option_1_text",
+         "label":"Option 1 text"
+      },
+      {
+         "type":"header",
+         "content":"Option 2"
+      },
+      {
+         "type":"checkbox",
+         "id":"show_option_2",
+         "label":"Show option 2"
+      },
+      {
+         "type":"image_picker",
+         "id":"option_2_img",
+         "label":"Option 2 Image"
+      },
+      {
+         "type":"text",
+         "id":"option_2_text",
+         "label":"Option 2 text"
+      },
+      {
+         "type":"header",
+         "content":"Option 3"
+      },
+      {
+         "type":"checkbox",
+         "id":"show_option_3",
+         "label":"Show option 3"
+      },
+      {
+         "type":"image_picker",
+         "id":"option_3_img",
+         "label":"Option 3 Image"
+      },
+      {
+         "type":"text",
+         "id":"option_3_text",
+         "label":"Option 3 text"
+      }
+    ],
+    "presets":[
+       {
+          "name":"Collection navigator",
+          "category":"Collection"
+       }
+    ]
+ }
 {% endschema %}
+
+{%- comment -%}
+  ___ _        _        
+ / __| |_ _  _| |___ ___
+ \__ \  _| || | / -_|_-<
+ |___/\__|\_, |_\___/__/
+          |__/          
+{%- endcomment -%}
+
+{% stylesheet %}
+    .collection-navigator {
+        display: flex;
+        padding: 1em;
+        overflow: hidden;
+        align-items: center;
+    }
+    .collection-navigator-h1 {
+        padding: 0em 0em 0em 2.5em;
+    }
+    .collection-navigator-options {
+        display: flex;
+        flex: auto;
+        justify-content: space-around;
+        overflow-x: auto;
+    }
+    .collection-navigator-option {
+        display: flex;
+        align-items: center;
+        padding: 1em 2.5em;
+    }
+
+    .collection-navigator-option-text {
+        padding: 0em 1em;
+    } 
+{% endstylesheet %}
