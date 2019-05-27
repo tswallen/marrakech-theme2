@@ -37,60 +37,21 @@ Theme Store optional settings
   <div class="header">
     {% comment %} Go to store {% endcomment %}
     {%- if section.settings.store_button_enabled -%}
-    <a class="header-button" id="guarantee">
+    <a class="header-button mobile" href="/collections/all">
+      Store
+    </a>
+    <a class="header-button desktop" href="/collections/all">
       Go to store
     </a>
     {%- endif -%}
 
     {% comment %} CART {% endcomment %}
-    <a class="header-button" href="/cart">
+    <a class="header-button desktop" href="/cart">
       {{ 'layout.cart.title' | t }}
       ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
     </a>
+
     <div class="spacer"></div>
-
-    {% comment %}
-    {% if shop.customer_accounts_enabled %}
-    <ul>
-      {% if customer %}
-      <li>
-        {% if customer.first_name != blank %}
-        {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-        {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
-        {% else %}
-        <a href="/account">{{ 'layout.customer.account' | t }}</a>
-        {% endif %}
-      </li>
-      <li>
-        {{ 'layout.customer.log_out' | t | customer_logout_link }}
-      </li>
-      {% else %}
-      <li>
-        {{ 'layout.customer.log_in' | t | customer_login_link }}
-      </li>
-      <li>
-        {{ 'layout.customer.create_account' | t | customer_register_link }}
-      </li>
-      {% endif %}
-    </ul>
-    {% endif %}
-    {% endcomment %}
-
-    {% comment %}
-    <form action="/search" method="get" role="search">
-      <label for="Search-{{ section.id }}" class="label-hidden">
-        {{ 'general.search.placeholder' | t }}
-      </label>
-
-      <input type="search" name="q" id="Search-{{ section.id }}" value="{{ search.terms | escape }}"
-        placeholder="{{ 'general.search.placeholder' | t }}">
-
-      <button type="submit" class="button">
-        {% include 'icon-search' %}
-        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
-      </button>
-    </form>
-    {% endcomment %}
 
     {% comment %} Logo {% endcomment %}
     <h1>
@@ -107,12 +68,33 @@ Theme Store optional settings
     </h1>
 
     <div class="spacer"></div>
-    <div class="header-links">
-      {% for link in linklists[section.settings.menu].links %}
-      <a href="{{ link.url }}">
-        {{ link.title }}
+
+    <a class="header-button mobile">
+      More
+    </a>
+
+    <div class="header-links desktop">
+      <a class="header-link" id="guarantee-button">
+        Our guarantee
       </a>
-      {% endfor %}
+      <a class="header-link" id="shipping-button">
+        Shipping
+      </a>
+      <a class="header-link" id="about-button">
+        About / FAQ
+      </a>
+      <div id="guarantee-dropdown" class="header-dropdown">
+        Guarantee
+        <span class="close">x</span>
+      </div>
+      <div id="shipping-dropdown" class="header-dropdown">
+        Shipping
+        <span class="close">x</span>
+      </div>
+      <div id="about-dropdown" class="header-dropdown">
+        About
+        <span class="close">x</span>
+      </div>
     </div>
 
   </div>
@@ -206,10 +188,55 @@ Theme Store optional settings
 {%- endcomment -%}
 
 {% javascript %}
-  document.getElementById('guarantee').addEventListener('click', toggleGuarantee);
+  let showGuarantee = false;
+  let showShipping = false;
+  let showAbout = false;
+
+  document.getElementById('guarantee-button').addEventListener('click', toggleGuarantee);
+  document.getElementById('shipping-button').addEventListener('click', toggleShipping);
+  document.getElementById('about-button').addEventListener('click', toggleAbout);
+  Array.from(document.getElementsByClassName('close')).forEach(function(button) {button.addEventListener('click', close);});
 
   function toggleGuarantee() {
-      alert('new');
+    showGuarantee = !showGuarantee;
+
+    if (showGuarantee) {
+      document.getElementById('guarantee-dropdown').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('guarantee-dropdown').style.display = 'none';
+  }
+
+  function toggleShipping() {
+    showShipping = !showShipping;
+
+    if (showShipping) {
+      document.getElementById('shipping-dropdown').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('shipping-dropdown').style.display = 'none';
+  }
+
+  function toggleAbout() {
+    showAbout = !showAbout;
+
+    if (showAbout) {
+      document.getElementById('about-dropdown').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('about-dropdown').style.display = 'none';
+  }
+
+  function close() {
+    showGuarantee = false;
+    showShipping = false;
+    showAbout = false;
+    document.getElementById('guarantee-dropdown').style.display = 'none';
+    document.getElementById('shipping-dropdown').style.display = 'none';
+    document.getElementById('about-dropdown').style.display = 'none';
   }
 {% endjavascript %}
 
@@ -233,8 +260,17 @@ Theme Store optional settings
     border: 1px solid lightgray;
   }
 
-  .header-button:not(:first-of-type) {
+  .header-button .desktop:not(:first-of-type) {
     margin: 0em 0em 0em 1em;
+  }
+
+  .header-link:not(:first-of-type) {
+    margin: 0em 0em 0em 1em;
+  }
+
+  .header-dropdown {
+    display: none;
+    position: absolute;
   }
 {% endstylesheet %}
 
