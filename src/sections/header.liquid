@@ -69,9 +69,13 @@ Theme Store optional settings
 
     <div class="spacer"></div>
 
-    <a class="header-button mobile">
+    {% comment %} Header Dropdown (mobile) {% endcomment %}
+    <a id="dropdown-toggle" class="header-button mobile">
       More
     </a>
+    <div id="header-dropdown">
+      Hey
+    </div>
 
     <div class="header-links desktop">
       <a class="header-link" id="guarantee-button">
@@ -83,15 +87,15 @@ Theme Store optional settings
       <a class="header-link" id="about-button">
         About / FAQ
       </a>
-      <div id="guarantee-dropdown" class="header-dropdown">
+      <div id="guarantee-dropdown" class="header-popover">
         Guarantee
         <span class="close">x</span>
       </div>
-      <div id="shipping-dropdown" class="header-dropdown">
+      <div id="shipping-dropdown" class="header-popover">
         Shipping
         <span class="close">x</span>
       </div>
-      <div id="about-dropdown" class="header-dropdown">
+      <div id="about-dropdown" class="header-popover">
         About
         <span class="close">x</span>
       </div>
@@ -191,11 +195,13 @@ Theme Store optional settings
   let showGuarantee = false;
   let showShipping = false;
   let showAbout = false;
+  let showDropdown = false;
 
   document.getElementById('guarantee-button').addEventListener('click', toggleGuarantee);
   document.getElementById('shipping-button').addEventListener('click', toggleShipping);
   document.getElementById('about-button').addEventListener('click', toggleAbout);
   Array.from(document.getElementsByClassName('close')).forEach(function(button) {button.addEventListener('click', close);});
+  document.getElementById('dropdown-toggle').addEventListener('click', toggleDropdown);
 
   function toggleGuarantee() {
     showGuarantee = !showGuarantee;
@@ -238,6 +244,18 @@ Theme Store optional settings
     document.getElementById('shipping-dropdown').style.display = 'none';
     document.getElementById('about-dropdown').style.display = 'none';
   }
+
+  function toggleDropdown() {
+    showDropdown = !showDropdown;
+
+    if (showDropdown) {
+      document.getElementById('header-dropdown').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('header-dropdown').style.display = 'none';
+  }
+
 {% endjavascript %}
 
 {%- comment -%}
@@ -268,9 +286,21 @@ Theme Store optional settings
     margin: 0em 0em 0em 1em;
   }
 
-  .header-dropdown {
+  #header-dropdown {
     display: none;
     position: absolute;
+  }
+
+  .header-popover {
+    display: none;
+    position: absolute;
+  }
+
+  @media (min-width: 900px) {
+    #header-dropdown {
+      display: none !important;
+      position: absolute;
+    }
   }
 {% endstylesheet %}
 
