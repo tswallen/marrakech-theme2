@@ -41,11 +41,13 @@
             </div>
             {% endif %}
         </div>
-        <select class="mobile">
-         <option value="volvo">Volvo</option>
-         <option value="saab">Saab</option>
-         <option value="mercedes">Mercedes</option>
-         <option value="audi">Audi</option>
+        <select class="collection-navigator-options-dropdown mobile">
+            {% if section.settings.show_option_1 %}
+               <option value="{{ section.settings.option_1_text | escape }}">{{ section.settings.option_1_text | escape }}</option>
+            {% endif %}
+            {% if section.settings.show_option_2 %}
+            <option value="{{section.settings.option_2_text}}">{{ section.settings.option_2_text | escape }}</option>
+         {% endif %}
        </select>
     </div>
 </section>
@@ -152,9 +154,10 @@
         padding: 1em;
         overflow: hidden;
         align-items: center;
+        justify-content: center;
     }
     .collection-navigator-h1 {
-        padding: 0em 1em 0em 2.5em;
+        padding: 0em .5em 0em 0em;
     }
     .collection-navigator-options {
         display: none;
@@ -170,7 +173,14 @@
         padding: 0em 1em;
     }
 
+    .collection-navigator-options-dropdown {
+      padding: 0em 0em 0em .5em;
+   }
+
     @media (min-width: 900px) {
+      .collection-navigator-h1 {
+         padding: 0em 1em 0em 2.5em;
+     }
       .collection-navigator-options {
          display: flex;
          flex: auto;

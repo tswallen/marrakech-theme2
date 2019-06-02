@@ -77,30 +77,13 @@ Theme Store optional settings
       Hey
     </div>
 
-    <div class="header-links desktop">
-      <a class="header-link" id="guarantee-button">
-        Our guarantee
-      </a>
-      <a class="header-link" id="shipping-button">
-        Shipping
-      </a>
-      <a class="header-link" id="about-button">
-        About / FAQ
-      </a>
-<!--       <div id="guarantee-dropdown" class="header-popover">
-        Guarantee
-        <span class="close">x</span>
-      </div> -->
-
-      {% include 'popover' with title: 'This worked' %}
-
-      <div id="shipping-dropdown" class="header-popover">
-        Shipping
-        <span class="close">x</span>
-      </div>
-      <div id="about-dropdown" class="header-popover">
-        About
-        <span class="close">x</span>
+    <div class="header-popovers desktop">
+      <div class="header-popover" id="guarantee">
+        <a class="header-popover-button" id="guarantee-button">Our guarantee</a>
+        <div class="header-popover-main" id="guarantee-popover">
+            Guarantee
+          <span id="guarantee-close">x</span>
+        </div>
       </div>
     </div>
 
@@ -195,70 +178,33 @@ Theme Store optional settings
 {%- endcomment -%}
 
 {% javascript %}
-  let showGuarantee = false;
-  let showShipping = false;
-  let showAbout = false;
   let showDropdown = false;
+  let isPopover = false;
 
-  document.getElementById('guarantee-button').addEventListener('click', toggleGuarantee);
-  document.getElementById('shipping-button').addEventListener('click', toggleShipping);
-  document.getElementById('about-button').addEventListener('click', toggleAbout);
-  Array.from(document.getElementsByClassName('close')).forEach(function(button) {button.addEventListener('click', close);});
-  document.getElementById('dropdown-toggle').addEventListener('click', toggleDropdown);
-
-  function toggleGuarantee() {
-    showGuarantee = !showGuarantee;
-
-    if (showGuarantee) {
-      document.getElementById('dropdown').style.display = 'block';
-      return;
-    }
-
-    document.getElementById('dropdown').style.display = 'none';
+  const init = (target) => {
+    Array.from(document.getElementsByClassName('header-popover'))
+    .forEach(popover => {
+      let button = document.getElementById(`${popover.id}-button`);
+      let close = document.getElementById(`${popover.id}-close`);
+      
+      button.addEventListener('click', () => {showPopover(popover.id)});
+      close.addEventListener('click', () => {closePopover(popover.id)});
+    });
   }
 
-  function toggleShipping() {
-    showShipping = !showShipping;
+  const showPopover = (target) => {
+    isPopover = true;
 
-    if (showShipping) {
-      document.getElementById('shipping-dropdown').style.display = 'block';
-      return;
-    }
-
-    document.getElementById('shipping-dropdown').style.display = 'none';
+    document.getElementById(`${target}-popover`).style.display = 'block';
   }
 
-  function toggleAbout() {
-    showAbout = !showAbout;
+  const closePopover = (target) => {
+    isPopover = false;
 
-    if (showAbout) {
-      document.getElementById('about-dropdown').style.display = 'block';
-      return;
-    }
-
-    document.getElementById('about-dropdown').style.display = 'none';
+    document.getElementById(`${target}-popover`).style.display = 'none';
   }
 
-  function close() {
-    showGuarantee = false;
-    showShipping = false;
-    showAbout = false;
-    document.getElementById('guarantee-dropdown').style.display = 'none';
-    document.getElementById('shipping-dropdown').style.display = 'none';
-    document.getElementById('about-dropdown').style.display = 'none';
-  }
-
-  function toggleDropdown() {
-    showDropdown = !showDropdown;
-
-    if (showDropdown) {
-      document.getElementById('header-dropdown').style.display = 'block';
-      return;
-    }
-
-    document.getElementById('header-dropdown').style.display = 'none';
-  }
-
+  init();
 {% endjavascript %}
 
 {%- comment -%}
@@ -294,9 +240,18 @@ Theme Store optional settings
     position: absolute;
   }
 
-  .header-popover {
+  .header-popovers {
+    display: none;
+  }
+
+  .header-popovers-button {
+    
+  }
+
+  .header-popover-main {
     display: none;
     position: absolute;
+    transform: translateX(calc(-100% + 1em));
   }
 
   @media (min-width: 900px) {
@@ -304,7 +259,12 @@ Theme Store optional settings
       display: none !important;
       position: absolute;
     }
+
+    .header-popovers {
+      display: flex;
+    }
   }
+
 {% endstylesheet %}
 
 {%- comment -%}
