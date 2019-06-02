@@ -87,10 +87,13 @@ Theme Store optional settings
       <a class="header-link" id="about-button">
         About / FAQ
       </a>
-      <div id="guarantee-dropdown" class="header-popover">
+<!--       <div id="guarantee-dropdown" class="header-popover">
         Guarantee
         <span class="close">x</span>
-      </div>
+      </div> -->
+
+      {% include 'popover' with title: 'This worked' %}
+
       <div id="shipping-dropdown" class="header-popover">
         Shipping
         <span class="close">x</span>
@@ -207,11 +210,11 @@ Theme Store optional settings
     showGuarantee = !showGuarantee;
 
     if (showGuarantee) {
-      document.getElementById('guarantee-dropdown').style.display = 'block';
+      document.getElementById('dropdown').style.display = 'block';
       return;
     }
 
-    document.getElementById('guarantee-dropdown').style.display = 'none';
+    document.getElementById('dropdown').style.display = 'none';
   }
 
   function toggleShipping() {
