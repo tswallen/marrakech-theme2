@@ -8,7 +8,7 @@
 
 <section>
     {%- assign collection = collections[section.settings.collection] -%}
-    <div class="collection">
+    <div class="collection" id="collection-extended-{{index}}">
         <aside class="collection-aside">
             {% include 'responsive-image' with
             image: section.settings.collection_img,
@@ -111,6 +111,11 @@
     {
         "name":"Collection extended",
         "settings":[
+        {
+            "type":"text",
+            "id":"index",
+            "label":"Index"
+        },
         {
             "type":"header",
             "content":"Images"

@@ -11,7 +11,7 @@
         <h1 class="collection-navigator-h1">{{ section.settings.heading | escape }}</h1>
         <div class="collection-navigator-options desktop">
             {% if section.settings.show_option_1 %}
-            <div class="collection-navigator-option">
+            <div class="collection-navigator-option" id="navigator-option-1">
                 {% include 'responsive-image' with
                         image: section.settings.option_1_img,
                         max_width: 20,
@@ -21,7 +21,7 @@
             </div>
             {% endif %}
             {% if section.settings.show_option_2 %}
-            <div class="collection-navigator-option">
+            <div class="collection-navigator-option" id="navigator-option-2">
                 {% include 'responsive-image' with
                         image: section.settings.option_2_img,
                         max_width: 20,
@@ -31,7 +31,7 @@
             </div>
             {% endif %}
             {% if section.settings.show_option_3 %}
-            <div class="collection-navigator-option">
+            <div class="collection-navigator-option" id="navigator-option-3">
                 {% include 'responsive-image' with
                         image: section.settings.option_3_img,
                         max_width: 20,
@@ -139,6 +139,29 @@
     ]
  }
 {% endschema %}
+
+{%- comment -%}
+ ___         _      _      
+/ __| __ _ _(_)_ __| |_ ___
+\__ \/ _| '_| | '_ \  _(_-<
+|___/\__|_| |_| .__/\__/__/
+              |_|          
+{%- endcomment -%}
+
+{% javascript %}
+   const init = () => {
+      Array.from(document.getElementsByClassName('collection-navigator-option'))
+      .forEach(navigator => {
+         navigator.addEventListener('click', () => {navigateTo(navigator.id.slice(17))});
+      });
+   }
+
+   const navigateTo = (target) => {
+      document.getElementById(`collection-extended-${target}`).scrollIntoView({behavior: 'smooth' });
+   }
+   
+   init()
+{% endjavascript %}
 
 {%- comment -%}
   ___ _        _        
