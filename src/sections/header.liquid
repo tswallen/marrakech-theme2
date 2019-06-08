@@ -1,332 +1,95 @@
-{%- comment -%}
-This is a required section for the Shopify Theme Store.
-It is available in the "Header" section in the theme editor.
-
-Theme Store required settings
-- Show announcement
-- Text: message to announce
-- Link: link of the announcement bar
-
-Theme Store optional settings
-- Home page only: only shows on the home page
-{%- endcomment -%}
-
-{%- comment -%}
-  __  __          _             
- |  \/  |__ _ _ _| |___  _ _ __ 
- | |\/| / _` | '_| / / || | '_ \
- |_|  |_\__,_|_| |_\_\\_,_| .__/
-                          |_|
-{%- endcomment -%}
-
-<section data-section-id="{{ section.id }}" data-section-type="header">
-  {%- if section.settings.announcement_bar_enabled -%}
-  <div>
-    {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
-    {%- if section.settings.announcement_bar_link != blank -%}
-    <a href="{{ section.settings.announcement_bar_link }}">
-      {{ section.settings.announcement_bar_text | escape }}
-    </a>
-    {%- else -%}
-    <p>{{ section.settings.announcement_bar_text | escape }}</p>
-    {%- endif -%}
-    {%- endif -%}
+<div class="navigation">
+  <a href="/collections/all" class="navigation-button mobile">Store</a>
+  <a href="/collections/all" class="navigation-button desktop">Go to store</a>
+  <a href="/cart" class="navigation-button desktop">Cart ({{ cart.item_count }})</a>
+  <span class="spacer"></span>
+  <a href="/" class="navigation-logo">{{ shop.name }}</a>
+  <span class="spacer"></span>
+  <div class="navigation-dropdown mobile">
+      <a class="navigation-dropdown-trigger" onclick="toggleDropdown('navigation-popover')">More</a>
+      <main class="navigation-dropdown-main" id="navigation-popover">
+        Lorem Ipsum
+      </main>
   </div>
-  {%- endif -%}
-
-  <div class="header">
-    {% comment %} Go to store {% endcomment %}
-    {%- if section.settings.store_button_enabled -%}
-    <a class="header-button mobile" href="/collections/all">
-      Store
-    </a>
-    <a class="header-button desktop" href="/collections/all">
-      Go to store
-    </a>
-    {%- endif -%}
-
-    {% comment %} CART {% endcomment %}
-    <a class="header-button desktop" href="/cart">
-      {{ 'layout.cart.title' | t }}
-      ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
-    </a>
-
-    <div class="spacer"></div>
-
-    {% comment %} Logo {% endcomment %}
-    <h1>
-      <a href="/" class="logo-image">
-        Greater Health
-      </a>
-    </h1>
-
-    <div class="spacer"></div>
-
-    {% comment %} Header Dropdown (mobile) {% endcomment %}
-<!--     <div>
-      <a class="header-button mobile" id="header-dropdown-button">
-        More
-      </a>
-      <div class="header-dropdown-main" id="header-dropdown">
-        This is the dropdown
-      </div>
-    </div> -->
-
-<!--     <div class="header-popovers desktop">
-      <div class="header-popover" id="guarantee">
-        <a class="header-popover-button" id="guarantee-button">Our guarantee</a>
-        <div class="header-popover-main" id="guarantee-popover">
-          Guarantee
-        </div>
-        <span class="closer" id="guarantee-close"></span>
-      </div>
-    </div> -->
-
+  <div class="navigation-popover desktop">
+    <a class="navigation-popover-trigger" onclick="togglePopover('guarantee-popover')">Our guarantee</a>
+    <main class="navigation-popover-main" id="guarantee-popover">
+      Lorem Ipsum
+    </main>
   </div>
-</section>
+</div>
 
-{%- comment -%}
-  ___     _                   
- / __| __| |_  ___ _ __  __ _ 
- \__ \/ _| ' \/ -_) '  \/ _` |
- |___/\__|_||_\___|_|_|_\__,_|
-
-{%- endcomment -%}
-
-{% schema %}
-  {
-    "name":"Header",
-    "settings":[
-      {
-          "type":"header",
-          "content":"Announcement bar"
-      },
-      {
-          "type":"checkbox",
-          "id":"announcement_bar_enabled",
-          "label":"Show announcement",
-          "default":false
-      },
-      {
-          "type":"checkbox",
-          "id":"announcement_bar_home_page_only",
-          "label":"Show on home page only",
-          "default":true
-      },
-      {
-          "type":"text",
-          "id":"announcement_bar_text",
-          "label":"Announcement text",
-          "default":"Announce something here"
-      },
-      {
-          "type":"url",
-          "id":"announcement_bar_link",
-          "label":"Announcement link",
-          "info":"Optional"
-      },
-      {
-          "type":"header",
-          "content":"Go to store button"
-      },
-      {
-          "type":"checkbox",
-          "id":"store_button_enabled",
-          "label":"Show go to store button",
-          "default":true
-      },
-      {
-          "type":"header",
-          "content":"Header"
-      },
-      {
-          "type":"image_picker",
-          "id":"logo",
-          "label":"Logo image"
-      },
-      {
-          "type":"range",
-          "id":"logo_max_width",
-          "min":50,
-          "max":450,
-          "step":10,
-          "unit":"px",
-          "label":"Custom logo width",
-          "default":250
-      },
-      {
-          "type":"link_list",
-          "id":"menu",
-          "label":"Menu",
-          "default":"main-menu"
-      }
-    ]
-  }
-{% endschema %}
-
-{%- comment -%}
- ___         _      _      
-/ __| __ _ _(_)_ __| |_ ___
-\__ \/ _| '_| | '_ \  _(_-<
-|___/\__|_| |_| .__/\__/__/
-              |_|          
-{%- endcomment -%}
-
-{% javascript %}
-  let isDropdown = false;
-  let isPopover = false;
-
-  const init = () => {
-    document.getElementById('header-dropdown-button').addEventListener('click', () => {toggleDropdown('header-dropdown')});
-
-    Array.from(document.getElementsByClassName('header-popover'))
-    .forEach(popover => {
-      let button = document.getElementById(`${popover.id}-button`);
-      let close = document.getElementById(`${popover.id}-close`);
-      
-      button.addEventListener('click', () => {showPopover(popover.id)});
-      close.addEventListener('click', () => {closePopover(popover.id)});
-    });
-  }
-
-  const showPopover = (target) => {
-    isPopover = true;
-
-    document.getElementById(`${target}-popover`).style.display = 'block';
-    document.getElementById(`${target}-close`).style.display = 'block';
-  }
-
-  const closePopover = (target) => {
-    isPopover = false;
-
-    document.getElementById(`${target}-popover`).style.display = 'none';
-    document.getElementById(`${target}-close`).style.display = 'none';
-  }
-
+<script>
   const toggleDropdown = (target) => {
-    isDropdown = !isDropdown;
+    const target$ = document.getElementById(target);
 
-    const dropdown = document.getElementById(target);
-
-    if (isDropdown) {
-      dropdown.style.display = 'none';
-    } else {
-      dropdown.style.display = 'block';
-    }
-  }
-
-  init();
-{% endjavascript %}
-
-{%- comment -%}
-  ___ _        _        
- / __| |_ _  _| |___ ___
- \__ \  _| || | / -_|_-<
- |___/\__|\_, |_\___/__/
-          |__/          
-{%- endcomment -%}
-
-{% stylesheet %}
-  .header {
-    display: flex;
-    align-items: center;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  }
-
-  .header-button {
-    padding: .5em;
-    border: 1px solid lightgray;
-    margin: 0em 0em 0em 1em;
-  }
-
-  .header-link:not(:first-of-type) {
-    margin: 0em 0em 0em 1em;
-  }
-
-  .header-dropdown-main {
-    display: none;
-    position: absolute;
-    z-index: 5;
-    background: white;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    margin: 1em 0em 0em 0em;
-  }
-
-  .header-popovers {
-    display: none;
-  }
-
-  .header-popovers-button {
-    
-  }
-
-  .header-popover-main {
-    display: none;
-    position: absolute;
-    transform: translateX(calc(-100% + 1em));
-    z-index: 5;
-    background: white;
-  }
-
-  @media (min-width: 900px) {
-    #header-dropdown {
-      display: none !important;
-      position: absolute;
+    if (!target$.style.display || target$.style.display === 'none') {
+      target$.style.display = 'block';
+      return;
     }
 
-    .header-popovers {
-      display: flex;
-    }
+    target$.style.display = 'none';
   }
+  const togglePopover = (target) => {
+    const target$ = document.getElementById(target);
 
-{% endstylesheet %}
+    if (!target$.style.display || target$.style.display === 'none') {
+      target$.style.display = 'block';
+      return;
+    }
 
-{%- comment -%}
-  __  __ _        
- |  \/  (_)___ __ 
- | |\/| | (_-</ _|
- |_|  |_|_/__/\__|
-                        
-{%- endcomment -%}
-
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "Organization",
-    "name": "{{ shop.name }}",
-    {% if section.settings.logo %}
-      {% assign image_size = section.settings.logo.width | append:'x' %}
-      "logo": "https:{{ section.settings.logo | img_url: image_size }}",
-    {% endif %}
-    "sameAs": [
-      "{{ settings.social_twitter_link }}",
-      "{{ settings.social_facebook_link }}",
-      "{{ settings.social_pinterest_link }}",
-      "{{ settings.social_instagram_link }}",
-      "{{ settings.social_tumblr_link }}",
-      "{{ settings.social_snapchat_link }}",
-      "{{ settings.social_youtube_link }}",
-      "{{ settings.social_vimeo_link }}"
-    ],
-    "url": "{{ shop.url }}{{ page.url }}"
+    target$.style.display = 'none';
   }
 </script>
 
-{% if template.name == 'index' %}
-  <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "WebSite",
-        "name": "{{ shop.name }}",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "{{ shop.url }}/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        },
-        "url": "{{ shop.url }}{{ page.url }}"
-      }
-    </script>
-{% endif %}
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+  ]
+}
+{% endschema %}
 
+{% stylesheet 'scss' %}
+  .navigation {
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  .navigation-button {
+    border: 1px solid gray;
+    padding: .5em;
+  }
+  .navigation-logo {
+    font-size: 1.5em;
+  }
+  .navigation-dropdown-trigger {
+    border: 1px solid gray;
+    padding: .5em;
+  }
+  .navigation-dropdown-main {
+    display: none;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    margin-top: 1.5em;
+    background: rgba(255,255,255,1);
+  }
+  .navigation-popover {
+    margin: 0em 0em 0em 1em;
+  }
+  .navigation-popover-main {
+    display: none;
+    position: absolute;
+    transform: translateX(calc(-100% + 1em));
+    background: rgba(255,255,255,1);
+  }
+
+  @media (min-width: 900px) {
+    .navigation-button {
+      margin: 0em 1em 0em 0em;
+    }
+  }
+{% endstylesheet %}
