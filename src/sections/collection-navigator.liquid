@@ -41,13 +41,16 @@
             </div>
             {% endif %}
         </div>
-        <select class="collection-navigator-options-dropdown mobile">
+        <select class="collection-navigator-options-dropdown mobile" id="testme">
             {% if section.settings.show_option_1 %}
-               <option value="{{ section.settings.option_1_text | escape }}">{{ section.settings.option_1_text | escape }}</option>
+            <option class="collection-navigator-options-dropdown-option mobile" value="1">{{ section.settings.option_1_text | escape }}</option>
             {% endif %}
             {% if section.settings.show_option_2 %}
-            <option value="{{section.settings.option_2_text}}">{{ section.settings.option_2_text | escape }}</option>
-         {% endif %}
+            <option class="collection-navigator-options-dropdown-option mobile" value="2">{{ section.settings.option_2_text | escape }}</option>
+            {% endif %}
+            {% if section.settings.show_option_3 %}
+            <option class="collection-navigator-options-dropdown-option mobile" value="3">{{ section.settings.option_3_text | escape }}</option>
+            {% endif %}
        </select>
     </div>
 </section>
@@ -150,6 +153,8 @@
 
 {% javascript %}
    const init = () => {
+      document.getElementById('testme').addEventListener('change', () => {navigateTo(document.getElementById('testme').value)});
+
       Array.from(document.getElementsByClassName('collection-navigator-option'))
       .forEach(navigator => {
          navigator.addEventListener('click', () => {navigateTo(navigator.id.slice(17))});
