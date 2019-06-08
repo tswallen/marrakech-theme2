@@ -56,36 +56,31 @@ Theme Store optional settings
     {% comment %} Logo {% endcomment %}
     <h1>
       <a href="/" class="logo-image">
-        {% if section.settings.logo != blank %}
-        {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
-        <img src="{{ section.settings.logo | img_url: image_size }}"
-          srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
-          alt="{{ section.settings.logo.alt | default: shop.name }}">
-        {% else %}
-        {{ shop.name }}
-        {% endif %}
+        Greater Health
       </a>
     </h1>
 
     <div class="spacer"></div>
 
     {% comment %} Header Dropdown (mobile) {% endcomment %}
-    <a id="dropdown-toggle" class="header-button mobile">
-      More
-    </a>
-    <div id="header-dropdown">
-      Hey
-    </div>
+<!--     <div>
+      <a class="header-button mobile" id="header-dropdown-button">
+        More
+      </a>
+      <div class="header-dropdown-main" id="header-dropdown">
+        This is the dropdown
+      </div>
+    </div> -->
 
-    <div class="header-popovers desktop">
+<!--     <div class="header-popovers desktop">
       <div class="header-popover" id="guarantee">
         <a class="header-popover-button" id="guarantee-button">Our guarantee</a>
         <div class="header-popover-main" id="guarantee-popover">
-            Guarantee
-          <span id="guarantee-close">x</span>
+          Guarantee
         </div>
+        <span class="closer" id="guarantee-close"></span>
       </div>
-    </div>
+    </div> -->
 
   </div>
 </section>
@@ -178,10 +173,12 @@ Theme Store optional settings
 {%- endcomment -%}
 
 {% javascript %}
-  let showDropdown = false;
+  let isDropdown = false;
   let isPopover = false;
 
   const init = () => {
+    document.getElementById('header-dropdown-button').addEventListener('click', () => {toggleDropdown('header-dropdown')});
+
     Array.from(document.getElementsByClassName('header-popover'))
     .forEach(popover => {
       let button = document.getElementById(`${popover.id}-button`);
@@ -196,12 +193,26 @@ Theme Store optional settings
     isPopover = true;
 
     document.getElementById(`${target}-popover`).style.display = 'block';
+    document.getElementById(`${target}-close`).style.display = 'block';
   }
 
   const closePopover = (target) => {
     isPopover = false;
 
     document.getElementById(`${target}-popover`).style.display = 'none';
+    document.getElementById(`${target}-close`).style.display = 'none';
+  }
+
+  const toggleDropdown = (target) => {
+    isDropdown = !isDropdown;
+
+    const dropdown = document.getElementById(target);
+
+    if (isDropdown) {
+      dropdown.style.display = 'none';
+    } else {
+      dropdown.style.display = 'block';
+    }
   }
 
   init();
@@ -225,9 +236,6 @@ Theme Store optional settings
   .header-button {
     padding: .5em;
     border: 1px solid lightgray;
-  }
-
-  .header-button:not(:first-of-type) {
     margin: 0em 0em 0em 1em;
   }
 
@@ -235,9 +243,15 @@ Theme Store optional settings
     margin: 0em 0em 0em 1em;
   }
 
-  #header-dropdown {
+  .header-dropdown-main {
     display: none;
     position: absolute;
+    z-index: 5;
+    background: white;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 1em 0em 0em 0em;
   }
 
   .header-popovers {
@@ -252,6 +266,8 @@ Theme Store optional settings
     display: none;
     position: absolute;
     transform: translateX(calc(-100% + 1em));
+    z-index: 5;
+    background: white;
   }
 
   @media (min-width: 900px) {

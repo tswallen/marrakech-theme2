@@ -8,7 +8,7 @@
 
 <section>
     {%- assign collection = collections[section.settings.collection] -%}
-    <div class="collection" id="collection-extended-{{index}}">
+    <div class="collection" id="collection-extended-{{section.settings.index}}">
         <aside class="collection-aside">
             {% include 'responsive-image' with
             image: section.settings.collection_img,
@@ -53,12 +53,12 @@
             <div class="collection-main-testimonial">
                 {% include 'responsive-image' with
                 image: section.settings.testimonial_img,
-                max_width: 75,
-                max_height: 75 %}
+                max_width: 50,
+                max_height: 50 %}
                 <div class="collection-main-testimonial-text">
                     <p class="collection-main-testimonial-text-p">{{ section.settings.testimonial_body | escape }}</p>
                     <span
-                        class="collection-main-testimonial-span">{{ section.settings.testimonial_author | escape }}</span>
+                        class="collection-main-testimonial-text-span">{{ section.settings.testimonial_author | escape }}</span>
                 </div>
             </div>
         </main>
@@ -279,9 +279,12 @@
     }
     .collection-main-testimonial {
         display: flex;
+        justify-content: center;
     }
     .collection-main-testimonial-text {
         text-align: right;
+        margin: 0em 0em 0em 1em;
+        max-width: 50%;
     }
     .collection-main-testimonial-text-span {
         font-weight: bold;
@@ -293,6 +296,7 @@
     .collection-product {
         display: flex;
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        margin: 1em 2.5em 1em 1em;
     }
 
     @media (min-width: 900px) {
