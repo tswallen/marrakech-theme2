@@ -1,47 +1,27 @@
-{%- comment -%}
-  __  __          _             
- |  \/  |__ _ _ _| |___  _ _ __ 
- | |\/| / _` | '_| / / || | '_ \
- |_|  |_\__,_|_| |_\_\\_,_| .__/
-                          |_|
-{%- endcomment -%}
 
-<section>
     <div class="collection-navigator">
         <h1 class="collection-navigator-h1">{{ section.settings.heading | escape }}</h1>
         <div class="collection-navigator-options desktop">
             {% if section.settings.show_option_1 %}
-            <div class="collection-navigator-option" id="navigator-option-1">
-                {% include 'responsive-image' with
-                        image: section.settings.option_1_img,
-                        max_width: 20,
-                        max_height: 20,
-    %}
-                <p class="collection-navigator-option-text">{{ section.settings.option_1_text | escape }}</p>
+            <div class="collection-navigator-option" onclick="navigateTo(1)">
+               <img src="{{ section.settings.option_1_img | img_url: '20x20' }}">
+               <p class="collection-navigator-option-text">{{ section.settings.option_1_text | escape }}</p>
             </div>
             {% endif %}
             {% if section.settings.show_option_2 %}
-            <div class="collection-navigator-option" id="navigator-option-2">
-                {% include 'responsive-image' with
-                        image: section.settings.option_2_img,
-                        max_width: 20,
-                        max_height: 20,
-    %}
-                <p class="collection-navigator-option-text">{{ section.settings.option_2_text | escape }}</p>
+            <div class="collection-navigator-option" onclick="navigateTo(1)">
+               <img src="{{ section.settings.option_2_img | img_url: '20x20' }}">
+               <p class="collection-navigator-option-text">{{ section.settings.option_2_text | escape }}</p>
             </div>
             {% endif %}
             {% if section.settings.show_option_3 %}
-            <div class="collection-navigator-option" id="navigator-option-3">
-                {% include 'responsive-image' with
-                        image: section.settings.option_3_img,
-                        max_width: 20,
-                        max_height: 20,
-    %}
-                <p class="collection-navigator-option-text">{{ section.settings.option_3_text | escape }}</p>
+            <div class="collection-navigator-option" onclick="navigateTo(1)">
+               <img src="{{ section.settings.option_3_img | img_url: '20x20' }}">
+               <p class="collection-navigator-option-text">{{ section.settings.option_3_text | escape }}</p>
             </div>
             {% endif %}
         </div>
-        <select class="collection-navigator-options-dropdown mobile" id="testme">
+        <select class="collection-navigator-options-dropdown mobile" onchange="navigateTo(this.value)">
             {% if section.settings.show_option_1 %}
             <option class="collection-navigator-options-dropdown-option mobile" value="1">{{ section.settings.option_1_text | escape }}</option>
             {% endif %}
@@ -53,15 +33,6 @@
             {% endif %}
        </select>
     </div>
-</section>
-
-{%- comment -%}
-  ___     _                   
- / __| __| |_  ___ _ __  __ _ 
- \__ \/ _| ' \/ -_) '  \/ _` |
- |___/\__|_||_\___|_|_|_\__,_|
-
-{%- endcomment -%}
 
 {% schema %}
 {
@@ -143,40 +114,13 @@
  }
 {% endschema %}
 
-{%- comment -%}
- ___         _      _      
-/ __| __ _ _(_)_ __| |_ ___
-\__ \/ _| '_| | '_ \  _(_-<
-|___/\__|_| |_| .__/\__/__/
-              |_|          
-{%- endcomment -%}
-
-{% javascript %}
-   const init = () => {
-      document.getElementById('testme').addEventListener('change', () => {navigateTo(document.getElementById('testme').value)});
-
-      Array.from(document.getElementsByClassName('collection-navigator-option'))
-      .forEach(navigator => {
-         navigator.addEventListener('click', () => {navigateTo(navigator.id.slice(17))});
-      });
-   }
-
+<script>
    const navigateTo = (target) => {
       document.getElementById(`collection-extended-${target}`).scrollIntoView({behavior: 'smooth' });
    }
-   
-   init()
-{% endjavascript %}
+</script>
 
-{%- comment -%}
-  ___ _        _        
- / __| |_ _  _| |___ ___
- \__ \  _| || | / -_|_-<
- |___/\__|\_, |_\___/__/
-          |__/          
-{%- endcomment -%}
-
-{% stylesheet %}
+{% stylesheet 'scss' %}
     .collection-navigator {
         display: flex;
         padding: 1em;
