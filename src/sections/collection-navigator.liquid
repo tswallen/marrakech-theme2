@@ -1,21 +1,43 @@
 <div class="navigator">
-   <h3 class="navigator-h3">{{ section.settings.tagline }}</h3>
+   <h3 class="navigator-h3">{{ section.settings.title }}</h3>
    <!-- Mobile -->
    <select class="navigator-options-vertical mobile" onchange="navigateTo(this.value)">
-       <option class="navigator-option-vertical" value="1">{{ section.settings.option_1_text }}</option>
+      {% if section.settings.option_1 %}
+         <option class="navigator-option-vertical" value="{{ section.settings.option_1_target }}">{{ section.settings.option_1_text }}</option>
+      {% endif %}
+      {% if section.settings.option_2 %}
+         <option class="navigator-option-vertical" value="{{ section.settings.option_2_target }}">{{ section.settings.option_2_text }}</option>
+      {% endif %}
+      {% if section.settings.option_3 %}
+         <option class="navigator-option-vertical" value="{{ section.settings.option_3_target }}">{{ section.settings.option_3_text }}</option>
+      {% endif %}
   </select>
    <!-- Desktop -->
-   <ul class="navigator-options-horizontal desktop">
-       <li class="navigator-option-horizontal" onclick="navigateTo(1)">
-           <img src="{{ section.settings.option_1_img | img_url: '20x20' }}">
-           <p class="navigator-option-horizontal-p">{{ section.settings.option_1_text }}</p>
-       </li>
+   <ul class="navigator-options-horizontal">
+      {% if section.settings.option_1 %}
+         <li class="navigator-option-horizontal" onclick="navigateTo('{{ section.settings.option_1_target }}')">
+            <img src="{{ section.settings.option_1_img | img_url: '20x20' }}">
+            <p class="navigator-option-horizontal-p">{{ section.settings.option_1_text }}</p>
+         </li>
+      {% endif %}
+      {% if section.settings.option_2 %}
+         <li class="navigator-option-horizontal" onclick="navigateTo('{{ section.settings.option_2_target }}')">
+            <img src="{{ section.settings.option_2_img | img_url: '20x20' }}">
+            <p class="navigator-option-horizontal-p">{{ section.settings.option_2_text }}</p>
+         </li>
+      {% endif %}
+      {% if section.settings.option_3 %}
+         <li class="navigator-option-horizontal" onclick="navigateTo('{{ section.settings.option_3_target }}')">
+            <img src="{{ section.settings.option_3_img | img_url: '20x20' }}">
+            <p class="navigator-option-horizontal-p">{{ section.settings.option_3_text }}</p>
+         </li>
+      {% endif %}
    </ul>
 </div>
 
 <script>
    const navigateTo = (target) => {
-      document.getElementById(`collection-extended-${target}`).scrollIntoView({behavior: 'smooth' });
+      document.getElementById(target).scrollIntoView({behavior: 'smooth' });
    }
 </script>
 
@@ -25,12 +47,12 @@
    "settings":[
      {
         "type":"header",
-        "content":"Tagline"
+        "content":"Title"
      },
      {
         "type":"text",
-        "id":"tagline",
-        "label":"Tagline"
+        "id":"title",
+        "label":"Title"
      },
      {
         "type":"header",
@@ -38,19 +60,72 @@
      },
      {
         "type":"checkbox",
-        "id":"show_option_1",
-        "label":"Show option 1"
+        "id":"option_1",
+        "label":"Show"
      },
      {
         "type":"image_picker",
         "id":"option_1_img",
-        "label":"Option 1 image"
+        "label":"Image"
      },
      {
         "type":"text",
         "id":"option_1_text",
-        "label":"Option 1 text"
-     }
+        "label":"Text"
+     },
+     {
+         "type":"text",
+         "id":"option_1_target",
+         "label":"Target"
+      },
+      {
+         "type":"header",
+         "content":"Option 2"
+      },
+      {
+         "type":"checkbox",
+         "id":"option_2",
+         "label":"Show"
+      },
+      {
+         "type":"image_picker",
+         "id":"option_2_img",
+         "label":"Image"
+      },
+      {
+         "type":"text",
+         "id":"option_2_text",
+         "label":"Text"
+      },
+      {
+          "type":"text",
+          "id":"option_2_target",
+          "label":"Target"
+       },
+       {
+         "type":"header",
+         "content":"Option 3"
+      },
+      {
+         "type":"checkbox",
+         "id":"option_3",
+         "label":"Show"
+      },
+      {
+         "type":"image_picker",
+         "id":"option_3_img",
+         "label":"Image"
+      },
+      {
+         "type":"text",
+         "id":"option_3_text",
+         "label":"Text"
+      },
+      {
+          "type":"text",
+          "id":"option_3_target",
+          "label":"Target"
+       }
    ],
    "presets":[
       {
@@ -67,15 +142,40 @@
        align-items: center;
        justify-content: center;
        overflow: hidden;
+       padding: 1em;
+   }
+   .navigator-h3 {
+      margin: 0;
+   }
+   .navigator-options-vertical {
+      margin: 0em 0em 0em 1em;
    }
    .navigator-options-horizontal {
-       display: flex;
-       flex: auto;
-       overflow-x: auto;
+       display: none;
    }
-   .navigator-option-horizontal {
-       display: flex;
-       align-items: center;
-       margin: auto;
+   @media (min-width: 900px) {
+      .navigator {
+         padding: 1em 0em 1em 1em;
+      }
+      .navigator-options-horizontal {
+         display: flex;
+      }
+     .navigator-options-horizontal {
+         display: flex;
+         flex: auto;
+         overflow-x: auto;
+         margin: 0em 0em 0em 1em;
+         padding: 0;
+      }
+      .navigator-option-horizontal {
+         display: flex;
+         align-items: center;
+         margin: auto;
+         padding: 0em 2.5em;
+         cursor: pointer;
+      }
+      .navigator-option-horizontal-p {
+         margin: 0em 0em 0em 1em;
+      }
    }
 {% endstylesheet %}
