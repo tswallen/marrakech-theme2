@@ -1,27 +1,221 @@
 <div class="collection" id="collection-extended-{{ section.settings.index }}">
-        <aside class="collection-aside">
-            <img src="{{ section.settings.collection_img | img_url: '500x500' }}">
-        </aside>
-        <main class="collection-main">
-            <h1 class="collection-main-h1">{{ section.settings.headline }}</h1>
-            <ul class="collection-main-features">
-                <li class="collection-main-feature">
-                    <img src="{{ section.settings.feature_1_img | img_url: '100x100' }}">
-                    <p class="collection-main-feature-p">{{ section.settings.feature_1_text }}</p>
-                </li>
-            </ul>
-            <h3 class="collection-main-h3">{{ section.settings.tagline }}</h3>
-            <div class="collection-main-testimonial">
-                <img src="{{ section.settings.feature_1_img | img_url: '50x50' }}">
-                <p class="collection-main-feature-text">
-                    {{ section.settings.testimonial_body }}
-                        <br>
-                    <strong>{{ section.settings.testimonial_author }}</strong>
-                </p>
-            </div>
-        </main>
-    </div>
+    <aside class="collection-aside">
+        <img src="{{ section.settings.main_img | img_url: '500x500' }}">
+    </aside>
+    <main class="collection-main">
+        <h1 class="collection-main-h1">{{ section.settings.title }}</h1>
+        <ul class="collection-main-features">
+            <li class="collection-main-feature">
+                <img src="{{ section.settings.feature_1_img | img_url: '100x100' }}">
+                <p class="collection-main-feature-p">{{ section.settings.feature_1_text }}</p>
+            </li>
+            <li class="collection-main-feature">
+                <img src="{{ section.settings.feature_1_img | img_url: '100x100' }}">
+                <p class="collection-main-feature-p">{{ section.settings.feature_1_text }}</p>
+            </li>
+            <li class="collection-main-feature">
+                <img src="{{ section.settings.feature_1_img | img_url: '100x100' }}">
+                <p class="collection-main-feature-p">{{ section.settings.feature_1_text }}</p>
+            </li>
+        </ul>
+        <h3 class="collection-main-h3">{{ section.settings.subtitle }}</h3>
+        <div class="collection-main-testimonial">
+            <img src="{{ section.settings.feature_1_img | img_url: '50x50' }}">
+            <p class="collection-main-testimonial-p">
+                {{ section.settings.testimonial_body }}
+                    <br>
+                <strong>{{ section.settings.testimonial_author }}</strong>
+            </p>
+        </div>
+    </main>
+</div>
+<div class="collection-products">
+    {% for product in collections[section.settings.collection].products limit: 3 %}
+        <a class="collection-product" href="{{ product.url | default: "#" }}">
+            <aside class="collection-product-aside">
+                <img src="{{ product.featured_image | img_url: '100x100' }}">
+            </aside>
+            <main class="collection-product-main">
+                <h3 class="collection-product-main-h3">{{ product.title }}</h3>
+                <span class="collection-product-main-span">{{ product.price | money }}</span>
+            </main>
+        </a>
+    {% endfor %}
+</div>
+
+{% schema %}
+    {
+        "name":"Collection navigator",
+        "settings":[
+        {
+            "type":"text",
+            "id":"index",
+            "label":"Index"
+        },
+        {
+            "type":"text",
+            "id":"title",
+            "label":"Title"
+        },
+        {
+            "type":"image_picker",
+            "id":"main_img",
+            "label":"Main image"
+        },
+        {
+            "type":"header",
+            "content":"Feature 1"
+        },
+        {
+            "type":"image_picker",
+            "id":"feature_1_img",
+            "label":"Image"
+        },
+        {
+            "type":"text",
+            "id":"feature_1_text",
+            "label":"Text"
+        },
+        {
+            "type":"header",
+            "content":"Subtitle"
+        },
+        {
+            "type":"text",
+            "id":"subtitle",
+            "label":"Subtitle"
+        },
+        {
+            "type":"header",
+            "content":"Testimonial"
+        },
+        {
+            "type":"text",
+            "id":"testimonial_body",
+            "label":"Body"
+        },
+        {
+            "type":"text",
+            "id":"testimonial_author",
+            "label":"Author"
+        },
+        {
+            "type":"collection",
+            "id":"collection",
+            "label":"Collection"
+        }
+        ],
+        "presets":[
+        {
+            "name":"Collection extended",
+            "category":"Collection"
+        }
+        ]
+    }
+{% endschema %}
     
-    {% stylesheet 'scss' %}
-        
-    {% endstylesheet %}
+{% stylesheet 'scss' %}
+    .collection {
+        display: flex;
+        flex-direction: column;
+    }
+    .collection-aside {
+        margin: auto;
+    }
+    .collection-main {
+        display: flex;
+        flex-direction: column;
+        flex: auto;
+        overflow: hidden;
+    }
+    .collection-main-h1 {
+        margin: 0em 1em 0em 1em;
+    }
+    .collection-main-features {
+        display: flex;
+        flex: auto;
+        align-items: center;
+        overflow-x: auto;
+        margin: 1em 0em 0em 0em;
+        padding: 0;
+    }
+    .collection-main-feature {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+        padding: 0em 2.5em;
+    }
+    .collection-main-feature-p {
+        min-width: 7.5em;
+        max-width: 10em;
+        margin: 1em 0em 0em 0em;
+        text-align: center;
+    }
+    .collection-main-h3 {
+        margin: 1em 1em 0em 1em;
+        text-align: center;
+    }
+    .collection-main-testimonial {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1em 2.5em 0em 2.5em;
+    }
+    .collection-main-testimonial-p {
+        margin: 1em 0em 0em 0em;
+        text-align: center;
+        min-width: 15em;
+        max-width: 25em;
+    }
+    .collection-products {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        padding: 0;
+        margin: 1em 1em 0em 1em;
+    }
+    .collection-product {
+        display: flex;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        margin: 0;
+    }
+    .collection-product:not(:first-of-type) {
+        margin: 1em 0em 0em 0em;
+    }
+    .collection-product-aside {
+        display: flex;
+    }
+    .collection-product-main {
+        display: flex;
+        flex-direction: column;
+        margin: 1em;
+    }
+    .collection-product-main-h3 {
+        margin: 0;
+    }
+    .collection-product-main-span {
+        margin: 1em 0em 0em 0em;
+    }
+
+    @media (min-width: 900px) {
+        .collection {
+            flex-direction: row;
+        }
+        .collection-main-testimonial {
+            flex-direction: row;
+        }
+        .collection-main-testimonial-p {
+            margin: 0em 0em 0em 1em;
+            text-align: right;
+        }
+        .collection-products {
+            flex-direction: row;
+        }
+        .collection-product, .collection-product:not(:first-of-type) {
+            margin: 0em 0em 0em 1em;
+        }
+    }
+{% endstylesheet %}
