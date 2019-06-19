@@ -1,102 +1,66 @@
 {% paginate collection.products by 12 %}
-  <header role="banner">
-    <h1>{{ collection.title }}</h1>
-    {% if collection.description != blank %}
-      <div class="rte">
-        {{ collection.description }}
-      </div>
+  <div class="store">
+    <h1 class="store-h1">Store</h1>
+    <div class="store-products">
+      {% for product in collection.products %}
+        <a class="store-product" href="{{ product.url | within: collection }}">
+          <aside class="store-product-aside">
+            <img src="{{ product.featured_image | img_url: '250x250' }}">
+          </aside>
+          <main class="store-product-main">
+            <h3 class="store-product-main-h3">{{ product.title }}</h3>
+            <span class="store-product-main-span">{{ product.price | money }}</span>
+          </main>
+        </a>
+      {% endfor %}
+    </div>
+    {% if paginate.pages > 1 %}
+      {% include 'pagination' %}
     {% endif %}
-
-    {% if collection.all_tags.size > 0 %}
-      <ul>
-        {% for tag in collection.all_tags %}
-          {% if current_tags contains tag %}
-            <li class="active">
-              {{ tag | link_to_remove_tag: tag }}
-            </li>
-          {% else %}
-            <li>
-              {{ tag | link_to_tag: tag }}
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </header>
-
-  <div>
-    {% for product in collection.products %}
-      <div>
-        {% if product.featured_image != blank %}
-          <a href="{{ product.url | within: collection }}">
-            {% include 'responsive-image' with
-              image: product.featured_image,
-              max_width: 700,
-              max_height: 800
-            %}
-          </a>
-        {% endif %}
-
-        <p>
-          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-        </p>
-        <p>
-          {% if product.compare_at_price > product.price %}
-
-            {% if product.price_varies %}
-              {%- assign sale_price = product.price | money -%}
-              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-            {% else %}
-              {{ 'products.product.on_sale' | t }}
-              {{ product.price | money }}
-            {% endif %}
-
-          {% else %}
-
-            {% if product.price_varies %}
-              {%- assign price = product.price | money -%}
-              {{ 'products.product.from_text_html' | t: price: price }}
-            {% else %}
-              {{ product.price | money }}
-            {% endif %}
-
-          {% endif %}
-
-          {% if product.compare_at_price > product.price %}
-            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-            <s>{{ product.compare_at_price | money }}</s>
-          {% endif %}
-
-          {% unless product.available %}
-            {{ 'products.product.sold_out' | t }}
-          {% endunless %}
-        </p>
-      </div>
-
-    {% else %}
-      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
-        {% for i in (1..8) %}
-          <a href="#">
-            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
-          </a>
-
-          <p>
-            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
-          </p>
-
-          <p>
-            {{ 1999 | money }}
-          </p>
-        {% endfor %}
-      {% else %}
-        <p>{{ 'collections.general.no_matches' | t }}</p>
-      {% endif %}
-
-    {% endfor %}
   </div>
-
-  {% if paginate.pages > 1 %}
-    {% include 'pagination' %}
-  {% endif %}
 {% endpaginate %}
+
+<style>
+    .store {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .store-h1 {
+      margin: 1em 1em 0em 1em;
+    }
+    .store-products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .store-product {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1em 2.5em 0em 2.5em;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    .store-product-aside {
+        display: flex;
+    }
+    .store-product-main {
+        display: flex;
+        flex-direction: column;
+        margin: 1em;
+    }
+    .store-product-main-h3 {
+        margin: 0;
+    }
+    .store-product-main-span {
+        margin: 1em 0em 0em 0em;
+    }
+    @media (min-width: 900px) {
+      .store-product {
+        flex-direction: column;
+        max-width: 15em;
+      }
+    }
+  </style>

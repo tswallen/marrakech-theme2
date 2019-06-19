@@ -1,6 +1,11 @@
 <div class="navigation">
-  <a href="/collections/all" class="navigation-button mobile">Store</a>
-  <a href="/collections/all" class="navigation-button desktop">Go to store</a>
+  {% if template.name == 'index' %}
+    <a href="/collections/all" class="navigation-button mobile">Store</a>
+    <a href="/collections/all" class="navigation-button desktop">Go to store</a>
+  {% else %}
+    <a href="/" class="navigation-button mobile">Back</a>
+    <a href="/" class="navigation-button desktop">Go back</a>
+  {% endif %}
   <a href="/cart" class="navigation-button desktop">Cart ({{ cart.item_count }})</a>
   <span class="spacer"></span>
   <a href="/" class="navigation-logo">{{ shop.name }}</a>
@@ -45,6 +50,7 @@
 {% schema %}
 {
   "name": "Header",
+  "class": "sticky",
   "settings": [
   ]
 }

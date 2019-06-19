@@ -14,7 +14,7 @@
 
 body {
     margin: 0px !important;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Helvetica', sans-serif;
   }
 
 .spacer {
@@ -27,6 +27,18 @@ body {
 
 .mobile {
   display: initial;
+}
+
+.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+.sticky-secondary {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 4.25em;
 }
 
 @media (min-width: 900px) {
