@@ -36,9 +36,37 @@
 </div>
 
 <script>
-   const navigateTo = (target) => {
-      document.getElementById(target).scrollIntoView({behavior: 'smooth' });
+   const init = () => {
+      document.addEventListener('scroll', styleNavigator);
    }
+
+   const navigateTo = (target) => {
+      /* document.getElementById(target).scrollIntoView({behavior: 'smooth'}); */
+      window.scrollTo(
+         {
+            top: document.getElementById(target).offsetTop - (document.getElementsByClassName('sticky')[0].clientHeight + document.getElementsByClassName('navigator')[0].clientHeight),
+            left: 0,
+            behavior: 'smooth'
+         }
+      );
+   }
+
+   const styleNavigator = () => {
+      const navigation = document.getElementsByClassName('sticky')[0];
+      const navigator = document.getElementsByClassName('navigator')[0];
+      const navigationGap = ((window.scrollY - navigator.parentElement.offsetTop) + (navigation.clientHeight));
+
+      if (navigationGap >= 0) {
+         navigator.style.background = '#ffffff';
+         navigator.style.boxShadow = '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)';
+         return;
+      }
+
+      navigator.style.background = 'transparent';
+      navigator.style.boxShadow = 'none';
+   }
+
+   init();
 </script>
 
 {% schema %}
