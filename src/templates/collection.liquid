@@ -5,7 +5,7 @@
       {% for product in collection.products %}
         <a class="store-product" href="{{ product.url | within: collection }}">
           <aside class="store-product-aside">
-            <img src="{{ product.featured_image | img_url: '250x250' }}">
+            <img class="store-product-aside-img" src="{{ product.featured_image | img_url: '250x250' }}">
           </aside>
           <main class="store-product-main">
             <h3 class="store-product-main-h3">{{ product.title }}</h3>
@@ -45,6 +45,9 @@
     }
     .store-product-aside {
         display: flex;
+    }
+    .store-product-aside-img {
+        width: 100%;
     }
     .store-product-main {
         display: flex;

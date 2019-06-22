@@ -4,7 +4,7 @@
   </aside>
   <main class="product-main">
     <h1 class="product-h1">{{ product.title }}</h1>
-    {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true' %}
+    {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true', class: 'product-main-actions' %}
     <!-- THESE ARE THE PRODUCT VARIANTS -->
     <!-- {% unless product.has_only_default_variant %}
     {% for option in product.options_with_values %}
@@ -86,13 +86,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1em;
     flex-direction: column;
+  }
+  .product-main {
+    margin: 1em 1em 0em 1em;
+  }
+  .product-main-actions {
+    display: flex;
+    justify-content: center;
   }
   @media (min-width: 900px) {
     .product {
       padding: 2.5em;
       flex-direction: row;
+    }
+    .product-main {
+      margin: 0em 0em 0em 1em;
     }
   }
 </style>
