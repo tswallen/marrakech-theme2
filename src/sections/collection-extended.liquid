@@ -6,7 +6,9 @@
     <div class="collection reverse" id="collection-extended-{{ section.settings.index }}">
 {% endif %}
     <aside class="collection-aside">
-        <img src="{{ section.settings.main_img | img_url: '500x500' }}">
+        <img class="collection-aside-img" src="{{ section.settings.main_img | img_url: '500x500' }}">
+        <img class="collection-aside-img" src="{{ section.settings.main_img | img_url: '500x500' }}">
+        <img class="collection-aside-img" src="{{ section.settings.main_img | img_url: '500x500' }}">
     </aside>
     <main class="collection-main">
         <h1 class="collection-main-h1">{{ section.settings.title }}</h1>
@@ -30,7 +32,7 @@
             <p class="collection-main-testimonial-p">
                 {{ section.settings.testimonial_body }}
                     <br>
-                <strong>{{ section.settings.testimonial_author }}</strong>
+                <strong class="collection-main-testimonial-p-strong">{{ section.settings.testimonial_author }}</strong>
             </p>
         </div>
     </main>
@@ -51,7 +53,7 @@
 
 {% schema %}
     {
-        "name":"Collection navigator",
+        "name":"Collection extended",
         "settings":[
         {
             "type":"text",
@@ -131,7 +133,17 @@
         flex-direction: column;
     }
     .collection-aside {
-        margin: auto;
+        margin: auto 1em;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .collection-aside-img:first-of-type {
+        width: 100%;
+    }
+    .collection-aside-img:not(:first-of-type) {
+        margin: 1em 0em 0em 0em;
+        width: calc(50% - .5em);
     }
     .collection-main {
         display: flex;
@@ -140,7 +152,7 @@
         overflow: hidden;
     }
     .collection-main-h1 {
-        margin: 0em 1em 0em 1em;
+        margin: 1em 1em 0em 1em;
     }
     .collection-main-features {
         display: flex;
@@ -162,6 +174,10 @@
         max-width: 10em;
         margin: 1em 0em 0em 0em;
         text-align: center;
+    }
+    .collection-main-testimonial-p-strong {
+        display: block;
+        margin: .5em 0em 0em 0em;
     }
     .collection-main-h3 {
         margin: 0em 1em;
@@ -217,6 +233,13 @@
         }
         .collection.reverse {
             flex-direction: row-reverse;
+        }
+        .collection-aside {
+            min-width: 500px;
+            max-width: 500px;
+        }
+        .collection-main-h1 {
+            margin: 0em 1em;
         }
         .collection-main-feature {
             padding: 1em 2.5em;

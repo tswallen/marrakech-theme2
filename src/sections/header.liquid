@@ -1,5 +1,5 @@
 <div class="navigation">
-  {% if template.name == 'index' %}
+  {% if template.name != 'collection' %}
     <a href="/collections/all" class="navigation-button mobile">Store</a>
     <a href="/collections/all" class="navigation-button desktop">Go to store</a>
   {% else %}
@@ -56,7 +56,7 @@
 }
 {% endschema %}
 
-{% stylesheet 'scss' %}
+<style>
   .navigation {
     display: flex;
     align-items: center;
@@ -71,6 +71,9 @@
   }
   .navigation-logo {
     font-size: 1.5em;
+  }
+  .navigation-dropdown {
+    visibility: hidden !important;
   }
   .navigation-dropdown-trigger {
     border: 1px solid gray;
@@ -88,6 +91,7 @@
   }
   .navigation-popover {
     margin: 0em 0em 0em 1em;
+    visibility: hidden !important;
   }
   .navigation-popover-trigger {
     cursor: pointer;
@@ -104,4 +108,4 @@
       margin: 0em 1em 0em 0em;
     }
   }
-{% endstylesheet %}
+</style>
