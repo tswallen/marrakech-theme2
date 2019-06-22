@@ -5,7 +5,8 @@
   <main class="product-main">
     <h1 class="product-h1">{{ product.title }}</h1>
     {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true' %}
-    {% unless product.has_only_default_variant %}
+    <!-- THESE ARE THE PRODUCT VARIANTS -->
+    <!-- {% unless product.has_only_default_variant %}
     {% for option in product.options_with_values %}
     <div class="js">
     
@@ -45,9 +46,9 @@
         </option>
         {% endfor %}
       </select>
-    </noscript>
+    </noscript> -->
     
-    <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+    <!-- <label for="Quantity">{{ 'products.product.quantity' | t }}</label> -->
     <input type="number" id="Quantity" name="quantity" value="1" min="1">
     
     <div data-price-wrapper>

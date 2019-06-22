@@ -36,15 +36,21 @@
 </div>
 
 <script>
+   const isEdge = /Edge/.test(navigator.userAgent);
+
    const init = () => {
       document.addEventListener('scroll', styleNavigator);
    }
 
    const navigateTo = (target) => {
-      /* document.getElementById(target).scrollIntoView({behavior: 'smooth'}); */
+      const pixels = document.getElementById(target).offsetTop - (document.getElementsByClassName('sticky')[0].clientHeight + document.getElementsByClassName('navigator')[0].clientHeight);
+      if (isEdge) {
+         window.scrollTo(0, pixels)
+         return;
+      }
       window.scrollTo(
          {
-            top: document.getElementById(target).offsetTop - (document.getElementsByClassName('sticky')[0].clientHeight + document.getElementsByClassName('navigator')[0].clientHeight),
+            top: pixels,
             left: 0,
             behavior: 'smooth'
          }
