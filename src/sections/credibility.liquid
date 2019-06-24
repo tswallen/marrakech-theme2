@@ -122,10 +122,11 @@
 }
 {% endschema %}
 
-{% stylesheet 'scss' %}
+<style>
 .credibility {
     display: flex;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background: linear-gradient(45deg, #020b43 0%,#020bc8 100%);
 }
 .credibility-main {
     display: flex;
@@ -135,6 +136,9 @@
 }
 .credibility-main-h3 {
     margin: 1em 1em 0em 1em;
+    font-family: 'Archivo Black', sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
 }
 .credibility-main-reasons {
     display: flex;
@@ -154,6 +158,7 @@
     min-width: 7.5em;
     max-width: 10em;
     margin: 0em 0em 0em 1em;
+    color: #ffffff;
 }
 @media (min-width: 900px) {
     .credibility-aside {
@@ -163,4 +168,4 @@
         padding: 1em 2.5em;
     }
 }
-{% endstylesheet %}
+</style>
