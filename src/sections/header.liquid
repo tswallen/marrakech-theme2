@@ -1,9 +1,13 @@
 <div class="navigation">
   {% if template.name != 'collection' %}
-    <a href="/collections/all" class="navigation-button primary mobile"><i class="fas fa-store"></i></a>
+    <a href="/collections/all" class="navigation-button primary mobile">
+      <i class="fas fa-store"></i>
+    </a>
     <a href="/collections/all" class="navigation-button primary desktop">Go to store</a>
   {% else %}
-    <a href="/" class="navigation-button mobile"><i class="fas fa-arrow-left"></i></a>
+    <a href="/" class="navigation-button mobile">
+      <i class="fas fa-arrow-left"></i>
+    </a>
     <a href="/" class="navigation-button primary desktop">Go back</a>
   {% endif %}
   <a href="/cart" class="navigation-button desktop">Cart ({{ cart.item_count }})</a>
@@ -13,24 +17,30 @@
   <div class="navigation-dropdown mobile">
       <a class="navigation-dropdown-trigger" onclick="toggleDropdown('navigation-popover')"><i class="fas fa-ellipsis-h"></i></a>
       <main class="navigation-dropdown-main" id="navigation-popover">
-        Lorem Ipsum
+          <div class="navigation-dropdown-main-ul">
+            <a class="navigation-dropdown-main-li">Cart ({{ cart.item_count }})</a>
+            <li class="navigation-dropdown-main-li">Our guarantee</li>
+            <li class="navigation-dropdown-main-li">Shipping</li>
+            <li class="navigation-dropdown-main-li">About / FAQ</li>
+          </div>
       </main>
   </div>
   <div class="navigation-popover desktop">
-    <a class="navigation-popover-trigger" onclick="togglePopover('guarantee-popover')">Our guarantee</a>
+    <a class="navigation-popover-trigger" onclick="closePopovers();openPopover('guarantee-popover')">Our guarantee</a>
+    <!-- <span class="closer" id="guarantee-popover-closer" onclick="openPopover('guarantee-popover')"></span> -->
     <main class="navigation-popover-main" id="guarantee-popover">
-      <p>
+      <p class="navigation-popover-main-p">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        <ul>
-          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+        <ul class="navigation-popover-main-ul">
+          <li class="navigation-popover-main-li">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          <li class="navigation-popover-main-li">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          <li class="navigation-popover-main-li">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
         </ul>
       </p>
     </main>
   </div>
   <div class="navigation-popover desktop">
-    <a class="navigation-popover-trigger" onclick="togglePopover('shipping-popover')">Shipping</a>
+    <a class="navigation-popover-trigger" onclick="closePopovers();openPopover('shipping-popover')">Shipping</a>
     <main class="navigation-popover-main" id="shipping-popover">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -43,7 +53,7 @@
     </main>
   </div>
   <div class="navigation-popover desktop">
-    <a class="navigation-popover-trigger" onclick="togglePopover('about-popover')">About / FAQ</a>
+    <a class="navigation-popover-trigger" onclick="closePopovers();openPopover('about-popover')">About / FAQ</a>
     <main class="navigation-popover-main" id="about-popover">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -58,6 +68,14 @@
 </div>
 
 <script>
+  const initHeader = () => {
+    window.addEventListener('click', event => {
+      if (event.target.className.includes('navigation-popover')) {
+        return;
+      }
+      closePopovers();
+    });
+  }
   const toggleDropdown = (target) => {
     const target$ = document.getElementById(target);
 
@@ -67,17 +85,18 @@
     }
 
     target$.style.display = 'none';
-  }
-  const togglePopover = (target) => {
+  } 
+  const openPopover = (target) => {
     const target$ = document.getElementById(target);
-
-    if (!target$.style.display || target$.style.display === 'none') {
-      target$.style.display = 'block';
-      return;
-    }
-
-    target$.style.display = 'none';
+    target$.style.display = 'block';
   }
+  const closePopovers = () => {
+    const openPopovers = document.getElementsByClassName('navigation-popover-main');
+    Array.from(openPopovers).forEach(openPopover => {
+      openPopover.style.display = 'none';
+    });
+  }
+  initHeader()
 </script>
 
 {% schema %}
@@ -131,9 +150,6 @@
     text-transform: uppercase;
     font-family: 'Archivo Black', sans-serif;
   }
-  .navigation-dropdown {
-    /* visibility: hidden !important; */
-  }
   .navigation-dropdown-trigger {
     padding: .5em;
     border: 2px solid #020B43;
@@ -149,16 +165,32 @@
     left: 0;
     width: 100%;
     position: absolute;
-    height: 100%;
+    height: calc(100vh - 4.25em);
     margin-top: 1.5em;
     background: rgba(255,255,255,1);
   }
+  .navigation-dropdown-main-ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: center;
+  }
+  .navigation-dropdown-main-li {
+    margin: 1em;
+  }
   .navigation-popover {
     margin: 0em 0em 0em 1em;
-    /* visibility: hidden !important; */
   }
   .navigation-popover-trigger {
     cursor: pointer;
+    color: #020B43;
+  }
+  .navigation-popover-trigger:hover {
+    color: #020BC8;
   }
   .navigation-popover-main {
     display: none;

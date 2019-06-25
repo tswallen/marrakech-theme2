@@ -38,7 +38,7 @@
 <script>
    const isEdge = /Edge/.test(navigator.userAgent);
 
-   const init = () => {
+   const initNavigator = () => {
       document.addEventListener('scroll', styleNavigator);
    }
 
@@ -61,7 +61,7 @@
       const navigation = document.getElementsByClassName('sticky')[0];
       const navigator = document.getElementsByClassName('navigator')[0];
       const navigationGap = ((window.scrollY - navigator.parentElement.offsetTop) + (navigation.clientHeight));
-      if (navigationGap >= -1) {
+      if (navigationGap >= -5) {
          navigator.style.background = '#ffffff';
          navigator.style.boxShadow = '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)';
          return;
@@ -71,7 +71,7 @@
       navigator.style.boxShadow = 'none';
    }
 
-   init();
+   initNavigator();
 </script>
 
 {% schema %}
