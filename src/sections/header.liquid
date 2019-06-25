@@ -1,9 +1,9 @@
 <div class="navigation">
   {% if template.name != 'collection' %}
-    <a href="/collections/all" class="navigation-button mobile">Store</a>
+    <a href="/collections/all" class="navigation-button primary mobile"><i class="fas fa-store"></i></a>
     <a href="/collections/all" class="navigation-button primary desktop">Go to store</a>
   {% else %}
-    <a href="/" class="navigation-button mobile">Back</a>
+    <a href="/" class="navigation-button mobile"><i class="fas fa-arrow-left"></i></a>
     <a href="/" class="navigation-button primary desktop">Go back</a>
   {% endif %}
   <a href="/cart" class="navigation-button desktop">Cart ({{ cart.item_count }})</a>
@@ -11,7 +11,7 @@
   <a href="/" class="navigation-logo">{{ shop.name }}</a>
   <span class="spacer"></span>
   <div class="navigation-dropdown mobile">
-      <a class="navigation-dropdown-trigger" onclick="toggleDropdown('navigation-popover')">More</a>
+      <a class="navigation-dropdown-trigger" onclick="toggleDropdown('navigation-popover')"><i class="fas fa-ellipsis-h"></i></a>
       <main class="navigation-dropdown-main" id="navigation-popover">
         Lorem Ipsum
       </main>
@@ -19,7 +19,40 @@
   <div class="navigation-popover desktop">
     <a class="navigation-popover-trigger" onclick="togglePopover('guarantee-popover')">Our guarantee</a>
     <main class="navigation-popover-main" id="guarantee-popover">
-      Lorem Ipsum
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <ul>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+        </ul>
+      </p>
+    </main>
+  </div>
+  <div class="navigation-popover desktop">
+    <a class="navigation-popover-trigger" onclick="togglePopover('shipping-popover')">Shipping</a>
+    <main class="navigation-popover-main" id="shipping-popover">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <ul>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+        </ul>
+      </p>
+    </main>
+  </div>
+  <div class="navigation-popover desktop">
+    <a class="navigation-popover-trigger" onclick="togglePopover('about-popover')">About / FAQ</a>
+    <main class="navigation-popover-main" id="about-popover">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <ul>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+        </ul>
+      </p>
     </main>
   </div>
 </div>
@@ -66,8 +99,8 @@
     width: calc(100% - 2em);
   }
   .navigation-button {
-    padding: .5em 2em;
-    border: 2px solid ;
+    padding: .5em;
+    border: 2px solid #020B43;
     background: #ffffff;
     text-decoration: none;
     color: #020B43;
@@ -82,12 +115,13 @@
   }
   .navigation-button.primary {
     border: 2px solid #020BC8;
-    color: #020BC8;
+    background: #020BC8;
+    color: #ffffff;
   }
   .navigation-button.primary:hover {
     border: 2px solid #020BC8;
-    background: #020BC8;
-    color: #ffffff;
+    color: #020BC8;
+    background: #ffffff;
   }
   .navigation-logo {
     font-size: 1.5em;
@@ -101,9 +135,14 @@
     /* visibility: hidden !important; */
   }
   .navigation-dropdown-trigger {
-    border: 1px solid gray;
     padding: .5em;
-    cursor: pointer;
+    border: 2px solid #020B43;
+    background: #ffffff;
+    text-decoration: none;
+    color: #020B43;
+    font-size: .9em;
+    font-weight: bold;
+    border-radius: .25em;
   }
   .navigation-dropdown-main {
     display: none;
@@ -126,11 +165,16 @@
     position: absolute;
     transform: translateX(calc(-100% + 1em));
     background: rgba(255,255,255,1);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    padding: 1em;
+    min-width: 500px;
+    margin: 1.5em 0em 0em 0em;
   }
 
   @media (min-width: 900px) {
     .navigation-button {
       margin: 0em 1em 0em 0em;
+      padding: .5em 2em;
     }
   }
 </style>

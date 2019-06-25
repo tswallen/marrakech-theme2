@@ -28,7 +28,7 @@
         </ul>
         <h3 class="collection-main-h3">{{ section.settings.subtitle }}</h3>
         <div class="collection-main-testimonial">
-            <img src="{{ section.settings.feature_1_img | img_url: '50x50' }}">
+            <img class="collection-main-testimonial-img" src="{{ section.settings.testimonial_img | img_url: '50x50' }}">
             <p class="collection-main-testimonial-p">
                 {{ section.settings.testimonial_body }}
                     <br>
@@ -103,6 +103,11 @@
             "content":"Testimonial"
         },
         {
+            "type":"image_picker",
+            "id":"testimonial_img",
+            "label":"Image"
+        },
+        {
             "type":"text",
             "id":"testimonial_body",
             "label":"Body"
@@ -131,6 +136,8 @@
     .collection {
         display: flex;
         flex-direction: column;
+        margin: 0em auto;
+        max-width: 1500px;
     }
     .collection-aside {
         margin: auto 1em;
@@ -194,6 +201,9 @@
         align-items: center;
         justify-content: center;
         margin: 1em 2.5em 0em 2.5em;
+    }
+    .collection-main-testimonial-img {
+        border-radius: 75px;
     }
     .collection-main-testimonial-p {
         margin: 1em 0em 0em 0em;
