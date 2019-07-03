@@ -27,6 +27,7 @@
 @import './components/icons';
 @import './components/placeholders';
 @import './components/responsive-images';
+@import './components/address-forms';
 
 // Sections
 @import './sections/blog-posts';
@@ -37,7 +38,3 @@
 // Templates
 @import './templates/gift_card';
 @import './templates/product';
-
-body {
-    margin: 0px !important;
-}

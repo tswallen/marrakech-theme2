@@ -5,8 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="{{ settings.color_accent }}">
-  <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" rel="stylesheet">
   <link rel="canonical" href="{{ canonical_url }}">
 
   {%- if settings.favicon != blank -%}
@@ -47,10 +45,6 @@
       },
       moneyFormat: {{ shop.money_format | json }}
     };
-
-    {% if template.directory == 'customers' %}
-      theme.allCountryOptionTags = {{ all_country_option_tags | json }};
-    {% endif %}
   </script>
 
   {% include 'script-tags', layout: 'theme' %}
@@ -60,7 +54,7 @@
 
 <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
 
-  {% comment %} <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a> {% endcomment %}
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
   {% section 'header' %}
 
