@@ -10,9 +10,9 @@
     </a>
     <a href="/" class="navigation-button primary desktop">Go back</a>
   {% endif %}
-  <a href="/cart" class="navigation-button desktop">Cart ({{ cart.item_count }})</a>
+  <!-- <a href="/cart" class="navigation-button desktop">Cart ({{ cart.item_count }})</a> -->
   <span class="spacer"></span>
-  <a href="/" class="navigation-logo">{{ shop.name }}</a>
+  <!-- <a href="/" class="navigation-logo">{{ shop.name }}</a> -->
   <span class="spacer"></span>
   <div class="navigation-dropdown mobile">
       <a class="navigation-dropdown-trigger" onclick="toggleDropdown('navigation-popover')"><i class="fas fa-ellipsis-h"></i></a>
@@ -112,10 +112,10 @@
   .navigation {
     display: flex;
     align-items: center;
-    padding: 1em;
+    padding: 2.5em;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     background: rgba(255,255,255,1);
-    width: calc(100% - 2em);
+    width: calc(100% - 5em);
   }
   .navigation-button {
     padding: .5em;
